@@ -1,0 +1,59 @@
+{% extends 'user/userbase.html' %}
+{% load static %}
+{% block content %}
+<div class="right_col" role="main" style="height:auto; font-family: -apple-system, BlinkMacSystemFont, 'San Francisco', 'Helvetica Neue', Helvetica, Arial, sans-serif;">
+    <div class="">
+        <div class="page-title">
+            <div class="title_left">
+                <h3 style="color: #007AFF; font-weight: 600;">Relief Camp List</h3>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+
+        <div class="row">
+            <div class="col-md-12 col-sm-12">
+                <div class="x_panel" style="border-radius: 15px; box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);">
+                    <div class="x_title">
+                        <h2 style="color: #1C1C1E; font-weight: 500;">Available Relief Camps 
+                            <small style="color: #8E8E93;">Providing Shelter & Support</small>
+                        </h2>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr style="background-color: #F2F2F7; color: #1C1C1E;">
+                                    <th>Camp Name</th>
+                                    <th>Location</th>
+                                    <th>Capacity</th>
+                                    <th>Current Occupants</th>
+                                    <th>Contact Person</th>
+                                    <th>Contact Number</th>
+                                    <th>Amenities</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for camp in relief_camps %}
+                                <tr>
+                                    <td>{{ camp.name }}</td>
+                                    <td>{{ camp.location.name }}</td>
+                                    <td>{{ camp.capacity }}</td>
+                                    <td>{{ camp.current_occupants }}</td>
+                                    <td>{{ camp.contact_person }}</td>
+                                    <td>{{ camp.contact_number }}</td>
+                                    <td>{{ camp.amenities.name }}</td>
+                                </tr>
+                                {% empty %}
+                                <tr>
+                                    <td colspan="7" style="text-align: center; color: #8E8E93;">No relief camps available at the moment.</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

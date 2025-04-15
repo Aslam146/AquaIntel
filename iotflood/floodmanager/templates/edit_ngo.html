@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<!-- page content -->
+<div class="right_col" role="main">
+    <div class="">
+        <div class="page-title">
+            <div class="title_left">
+                <h3>Edit NGO</h3>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="row">
+            <div class="col-md-12 col-sm-12">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h2>Edit NGO Details <small>Update the information</small></h2>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+                        <br />
+                        <form method="POST" action="{% url 'ngoedit' ngo.id %}" class="form-horizontal form-label-left">
+                            {% csrf_token %}
+                            <input type="hidden" name="id" value="{{ ngo.id }}">
+
+                            <div class="item form-group">
+                                <label class="col-form-label col-md-3 col-sm-3 label-align">NGO Name <span class="required">*</span></label>
+                                <div class="col-md-6 col-sm-6">
+                                    <input type="text" id="ngo_name" name="ngo_name" required="required" class="form-control" value="{{ ngo.ngo_name }}">
+                                </div>
+                            </div>
+
+                            <div class="item form-group">
+                                <label class="col-form-label col-md-3 col-sm-3 label-align">Contact Person <span class="required">*</span></label>
+                                <div class="col-md-6 col-sm-6">
+                                    <input type="text" id="contact_person" name="contact_person" required="required" class="form-control" value="{{ ngo.contact_person }}">
+                                </div>
+                            </div>
+
+                            <div class="item form-group">
+                                <label class="col-form-label col-md-3 col-sm-3 label-align">Email <span class="required">*</span></label>
+                                <div class="col-md-6 col-sm-6">
+                                    <input type="email" id="email" name="email" required="required" class="form-control" value="{{ ngo.email }}">
+                                </div>
+                            </div>
+
+                            <div class="item form-group">
+                                <label class="col-form-label col-md-3 col-sm-3 label-align">Phone Number <span class="required">*</span></label>
+                                <div class="col-md-6 col-sm-6">
+                                    <input type="text" id="phone_number" name="phone_number" required="required" class="form-control" value="{{ ngo.phone_number }}">
+                                </div>
+                            </div>
+
+                            <div class="item form-group">
+                                <label class="col-form-label col-md-3 col-sm-3 label-align">Address <span class="required">*</span></label>
+                                <div class="col-md-6 col-sm-6">
+                                    <textarea id="address" name="address" required="required" class="form-control">{{ ngo.address }}</textarea>
+                                </div>
+                            </div>
+
+                            <div class="item form-group">
+                                <label class="col-form-label col-md-3 col-sm-3 label-align">Mission Statement <span class="required">*</span></label>
+                                <div class="col-md-6 col-sm-6">
+                                    <textarea id="mission" name="mission" required="required" class="form-control">{{ ngo.mission }}</textarea>
+                                </div>
+                            </div>
+
+                            <div class="item form-group">
+                                <label class="col-form-label col-md-3 col-sm-3 label-align">Website URL</label>
+                                <div class="col-md-6 col-sm-6">
+                                    <input type="text" id="website" name="website"  required="required" class="form-control" value="{{ ngo.website }}">
+                                </div>
+                            </div>
+
+                            <div class="ln_solid"></div>
+                            <div class="item form-group">
+                                <div class="col-md-6 col-sm-6 offset-md-3">
+                                    <button class="btn btn-primary" type="button">Cancel</button>
+                                    <button class="btn btn-primary" type="reset">Reset</button>
+                                    <button type="submit" class="btn btn-success">Save Changes</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /page content -->
+{% endblock %}

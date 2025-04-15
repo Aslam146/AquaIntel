@@ -1,0 +1,67 @@
+{% extends 'user/userbase.html' %}
+{% load static %}
+{% block content %}
+<!-- Page Content -->
+<div class="right_col" role="main" style="height:auto; font-family: -apple-system, BlinkMacSystemFont, 'San Francisco', 'Helvetica Neue', Helvetica, Arial, sans-serif;">
+    <div class="">
+        <div class="page-title">
+            <div class="title_left">
+                <h3 style="color: #007AFF; font-weight: 600;">NGO Support List</h3>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+      
+        <!-- NGO List -->
+        <div class="row">
+            <div class="col-md-12 col-sm-12">
+                <div class="x_panel" style="border-radius: 15px; box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);">
+                    <div class="x_title">
+                        <h2 style="color: #1C1C1E; font-weight: 500;">Available NGOs <small style="color: #8E8E93;">Supporting Communities</small></h2>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr style="background-color: #F2F2F7; color: #1C1C1E;">
+                                    <th>Name</th>
+                                    <th>Contact Person</th>
+                                    <th>Email</th>
+                                    <th>Phone</th>
+                                    <th>Address</th>
+                                    <th>Mission</th>
+                                    <th>Website</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for ngo in ngos %}
+                                <tr>
+                                    <td>{{ ngo.ngo_name }}</td>
+                                    <td>{{ ngo.contact_person }}</td>
+                                    <td>{{ ngo.email }}</td>
+                                    <td>{{ ngo.phone_number }}</td>
+                                    <td>{{ ngo.address }}</td>
+                                    <td>{{ ngo.mission }}</td>
+                                    <td>
+                                        {% if ngo.website %}
+                                            <a href="{{ ngo.website }}" target="_blank" style="color: #007AFF; text-decoration: none;">Visit</a>
+                                        {% else %}
+                                            N/A
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                                {% empty %}
+                                <tr>
+                                    <td colspan="7" style="text-align: center; color: #8E8E93;">No NGOs available at the moment.</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /NGO List -->
+    </div>
+</div>
+<!-- /Page Content -->
+{% endblock %}

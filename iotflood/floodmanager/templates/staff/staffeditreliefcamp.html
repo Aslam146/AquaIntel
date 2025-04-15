@@ -1,0 +1,103 @@
+{% extends 'staff/staffdashboard.html' %}
+{% load static %}
+{% block content %}
+<div class="right_col" role="main">
+    <div class="">
+        <div class="page-title">
+            <div class="title_left">
+                <h3>Edit Relief Camp</h3>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="row">
+            <div class="col-md-12 col-sm-12">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h2>Edit Camp Details <small>Update the information</small></h2>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+                        <br />
+                        <form method="POST" action="{% url 'staffeditreliefcamp' camp.id %}" class="form-horizontal form-label-left">
+                            {% csrf_token %}
+
+                            <div class="item form-group">
+                                <label class="col-form-label col-md-3 col-sm-3 label-align">Camp Name <span class="required">*</span></label>
+                                <div class="col-md-6 col-sm-6">
+                                    <input type="text" name="camp_name" value="{{ camp.name }}" class="form-control" required>
+                                </div>
+                            </div>
+
+                            <div class="item form-group">
+                                <label class="col-form-label col-md-3 col-sm-3 label-align">Location <span class="required">*</span></label>
+                                <div class="col-md-6 col-sm-6">
+                                    <select name="location" class="form-control" required>
+                                        {% for loc in locations %}
+                                            <option value="{{ loc.id }}" {% if loc.id == camp.location.id %}selected{% endif %}>{{ loc.name }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="item form-group">
+                                <label class="col-form-label col-md-3 col-sm-3 label-align">Capacity <span class="required">*</span></label>
+                                <div class="col-md-6 col-sm-6">
+                                    <input type="number" name="capacity" value="{{ camp.capacity }}" class="form-control" required>
+                                </div>
+                            </div>
+
+                            <div class="item form-group">
+                                <label class="col-form-label col-md-3 col-sm-3 label-align">Current Occupants</label>
+                                <div class="col-md-6 col-sm-6">
+                                    <input type="number" name="current_occupants" value="{{ camp.current_occupants }}" class="form-control">
+                                </div>
+                            </div>
+
+                            <div class="item form-group">
+                                <label class="col-form-label col-md-3 col-sm-3 label-align">Contact Person <span class="required">*</span></label>
+                                <div class="col-md-6 col-sm-6">
+                                    <input type="text" name="contact_person" value="{{ camp.contact_person }}" class="form-control" required>
+                                </div>
+                            </div>
+
+                            <div class="item form-group">
+                                <label class="col-form-label col-md-3 col-sm-3 label-align">Contact Number <span class="required">*</span></label>
+                                <div class="col-md-6 col-sm-6">
+                                    <input type="text" name="contact_number" value="{{ camp.contact_number }}" class="form-control" required>
+                                </div>
+                            </div>
+                            <div class="item form-group">
+                                <label class="col-form-label col-md-3 col-sm-3 label-align">Amenities <span class="required">*</span></label>
+                                <div class="col-md-6 col-sm-6">
+                                    <select name="Amenities" class="form-control" required>
+                                        {% for amenity in amenities %}
+                                            <option value="{{ amenity.id }}" {% if amenity in camp.amenities.all %}selected{% endif %}>{{ amenity.name }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+                           
+
+                            <div class="item form-group">
+                                <label class="col-form-label col-md-3 col-sm-3 label-align">Remarks</label>
+                                <div class="col-md-6 col-sm-6">
+                                    <textarea name="remarks" class="form-control">{{ camp.remarks }}</textarea>
+                                </div>
+                            </div>
+
+                            <div class="ln_solid"></div>
+                            <div class="item form-group">
+                                <div class="col-md-6 col-sm-6 offset-md-3">
+                                    <a href="{% url 'staffreliefcamptable' %}" class="btn btn-secondary">Cancel</a>
+                                    <button class="btn btn-primary" type="reset">Reset</button>
+                                    <button type="submit" class="btn btn-success">Save Changes</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

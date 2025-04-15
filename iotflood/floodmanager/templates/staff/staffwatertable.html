@@ -1,0 +1,85 @@
+{% extends 'staff/staffdashboard.html' %}
+{% load static %}
+{% block content %}
+<!-- page content -->
+<div class="right_col" role="main">
+    <div class="">
+        <div class="page-title">
+            <div class="title_left">
+                <h3>Water Source Table</h3>
+            </div>
+            <div class="title_right">
+                <div class="col-md-5 col-sm-5 form-group pull-right top_search">
+                    <div class="input-group">
+                        <input type="text" id="waterSearch" class="form-control" placeholder="Search location...">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="button">Go!</button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="row">
+            <div class="col-md-12 col-sm-12">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h2>Water Sources</h2>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                   
+                                    <th>Name</th>
+                                    <th>Location</th>
+                                    <th>Current Level (m)</th>
+                                    <th>Status</th>
+                                    <th>Last Updated</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for source in water_sources %}
+                                <tr>
+                                    <td>{{ forloop.counter }}</td>
+                                    <td>{{ source.source_name }}</td>
+                                    <td>{{ source.location }}</td>
+                                    <td>{{ source.water_level }}</td>
+                                    <td>{{ source.water_status }}</td>
+                                    <td>{{ source.last_updated }}</td>
+                                    <td>
+                                        <a href="{% url 'staffwateredit' source.id %}" class="btn btn-info btn-sm">Edit</a>
+                                        <a href="{% url 'staffwaterdelete' source.id %}" class="btn btn-danger btn-sm">Delete</a>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                        <div class="pagination">
+                            <!-- Pagination (if needed) -->
+                            <span class="btn btn-default">Page 1 of 1</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+    
+</div>
+<script>
+    document.getElementById("waterSearch").addEventListener("keyup", function () {
+        let value = this.value.toLowerCase();
+        let rows = document.querySelectorAll("tbody tr");
+
+        rows.forEach(row => {
+            let text = row.innerText.toLowerCase();
+            row.style.display = text.includes(value) ? "" : "none";
+        });
+    });
+</script>
+
+{% endblock %}

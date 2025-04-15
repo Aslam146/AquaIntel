@@ -1,0 +1,235 @@
+{% extends 'user/userbase.html' %}
+{% load static %}
+{% block content %}
+<!-- page content -->
+<div class="right_col" role="main">
+    <div class="">
+        <div class="page-title">
+            <div class="title_left">
+                <h3>Flood Alert Management</h3>
+            </div>
+
+            <div class="title_right">
+                <div class="col-md-5 col-sm-5 form-group pull-right top_search">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Search alerts...">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="button">Go!</button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="row">
+            <div class="col-md-12 col-sm-12">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h2>Manage Flood Alerts <small>Input and categorize alerts</small></h2>
+                        <ul class="nav navbar-right panel_toolbox">
+                            <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
+                            <li class="dropdown">
+                                <!-- <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-wrench"></i></a> -->
+                                <!-- <ul class="dropdown-menu" role="menu">
+                                    <li><a class="dropdown-item" href="#">Settings 1</a></li>
+                                    <li><a class="dropdown-item" href="#">Settings 2</a></li>
+                                </ul> -->
+                            </li>
+                            <li><a class="close-link"><i class="fa fa-close"></i></a></li>
+                        </ul>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+                        <br />
+                        <form id="flood-alert-form" data-parsley-validate class="form-horizontal form-label-left">
+
+                            <!-- Alert Level -->
+                            <div class="item form-group">
+                                <label class="col-form-label col-md-3 col-sm-3 label-align">Alert Level <span class="required">*</span></label>
+                                <div class="col-md-6 col-sm-6">
+                                    <select id="alert_level" name="alert_level" required="required" class="form-control" onchange="updateAlertMessage()">
+                                        <option value="">Select Alert Level</option>
+                                        <option value="low">Low Risk</option>
+                                        <option value="moderate">Moderate Risk</option>
+                                        <option value="high">High Risk</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <!-- Geographical Area -->
+                            <div class="item form-group">
+                                <label class="col-form-label col-md-3 col-sm-3 label-align">Geographical Area <span class="required">*</span></label>
+                                <div class="col-md-6 col-sm-6">
+                                    <input type="text" id="geographical_area" name="geographical_area" required="required" class="form-control" placeholder="Enter affected area">
+                                </div>
+                            </div>
+
+                            <!-- Rivers in Pathanamthitta -->
+                            <div class="item form-group">
+                                <label class="col-form-label col-md-3 col-sm-3 label-align">Rivers in Pathanamthitta</label>
+                                <div class="col-md-6 col-sm-6">
+                                    <select id="rivers" name="rivers" class="form-control">
+                                        <option value="">Select River</option>
+                                        <option value="pamba">Pamba</option>
+                                        <option value="achu">Achu</option>
+                                        <option value="manimala">Manimala</option>
+                                        <option value="thodupuzha">Thodupuzha</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <!-- Dams in Pathanamthitta -->
+                            <div class="item form-group">
+                                <label class="col-form-label col-md-3 col-sm-3 label-align">Dams in Pathanamthitta</label>
+                                <div class="col-md-6 col-sm-6">
+                                    <select id="dams" name="dams" class="form-control">
+                                        <option value="">Select Dam</option>
+                                        <option value="kumily">Kumily Dam</option>
+                                        <option value="sabarigiri">Sabarigiri Dam</option>
+                                        <option value="idukki">Idukki Dam</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <!-- Water Storage Areas -->
+                            <div class="item form-group">
+                                <label class="col-form-label col-md-3 col-sm-3 label-align">Water Storage Areas</label>
+                                <div class="col-md-6 col-sm-6">
+                                    <select id="water_storage" name="water_storage" class="form-control">
+                                        <option value="">Select Storage Area</option>
+                                        <option value="pathanamthitta">Pathanamthitta</option>
+                                        <option value="pampa">Pampa Water Storage</option>
+                                        <option value="kumily">Kumily Storage</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <!-- Water Authority Places -->
+                            <div class="item form-group">
+                                <label class="col-form-label col-md-3 col-sm-3 label-align">Water Authority Places</label>
+                                <div class="col-md-6 col-sm-6">
+                                    <select id="water_authority" name="water_authority" class="form-control">
+                                        <option value="">Select Authority Place</option>
+                                        <option value="pathanamthitta">Pathanamthitta Authority</option>
+                                        <option value="kumily">Kumily Authority</option>
+                                        <option value="idukki">Idukki Authority</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <!-- Alert Message -->
+                            <div class="item form-group">
+                                <label class="col-form-label col-md-3 col-sm-3 label-align">Alert Message <span class="required">*</span></label>
+                                <div class="col-md-6 col-sm-6">
+                                    <textarea id="alert_msg" name="alert_msg" required="required" class="form-control" placeholder="Enter alert message"></textarea>
+                                </div>
+                            </div>
+
+                            <!-- Priority Level -->
+                            <div class="item form-group">
+                                <label class="col-form-label col-md-3 col-sm-3 label-align">Priority Level <span class="required">*</span></label>
+                                <div class="col-md-6 col-sm-6">
+                                    <select id="priority_level" name="priority_level" required="required" class="form-control">
+                                        <option value="">Select Priority Level</option>
+                                        <option value="high">High</option>
+                                        <option value="medium">Medium</option>
+                                        <option value="low">Low</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <!-- Alert Date -->
+                            <div class="item form-group">
+                                <label class="col-form-label col-md-3 col-sm-3 label-align">Alert Date <span class="required">*</span></label>
+                                <div class="col-md-6 col-sm-6">
+                                    <input type="date" id="alert_date" name="alert_date" required="required" class="form-control">
+                                </div>
+                            </div>
+
+                            <!-- Alert Time -->
+                            <div class="item form-group">
+                                <label class="col-form-label col-md-3 col-sm-3 label-align">Alert Time <span class="required">*</span></label>
+                                <div class="col-md-6 col-sm-6">
+                                    <input type="time" id="alert_time" name="alert_time" required="required" class="form-control">
+                                </div>
+                            </div>
+
+                            <!-- Attachments -->
+                            <div class="item form-group">
+                                <label class="col-form-label col-md-3 col-sm-3 label-align">Attachments</label>
+                                <div class="col-md-6 col-sm-6">
+                                    <input type="file" id="attachments" name="attachments" class="form-control">
+                                </div>
+                            </div>
+
+                            <!-- Notification Channels -->
+                            <div class="item form-group">
+                                <label class="col-form-label col-md-3 col-sm-3 label-align">Notification Channels</label>
+                                <div class="col-md-6 col-sm-6">
+                                    <div class="checkbox">
+                                        <label><input type="checkbox" name="notification_channels" value="sms"> SMS</label>
+                                    </div>
+                                    <div class="checkbox">
+                                        <label><input type="checkbox" name="notification_channels" value="email"> Email</label>
+                                    </div>
+                                    <div class="checkbox">
+                                        <label><input type="checkbox" name="notification_channels" value="app"> App Notification</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Preview Alert Message -->
+                            <div class="item form-group">
+                                <label class="col-form-label col-md-3 col-sm-3 label-align">Preview Alert Message</label>
+                                <div class="col-md-6 col-sm-6">
+                                    <div id="alert_preview" class="alert alert-info" style="display: none;"></div>
+                                </div>
+                            </div>
+
+                            <div class="ln_solid"></div>
+                            <div class="item form-group">
+                                <div class="col-md-6 col-sm-6 offset-md-3">
+                                    <button class="btn btn-primary" type="button">Cancel</button>
+                                    <button class="btn btn-primary" type="reset">Reset</button>
+                                    <button type="submit" class="btn btn-success">Submit</button>
+                                </div>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /page content -->
+
+<script>
+    function updateAlertMessage() {
+        const alertLevel = document.getElementById('alert_level').value;
+        const alertMsg = document.getElementById('alert_msg');
+        const alertPreview = document.getElementById('alert_preview');
+
+        let message = '';
+
+        switch (alertLevel) {
+            case 'low':
+                message = "Stay informed about weather updates.";
+                break;
+            case 'moderate':
+                message = "Prepare your emergency kit and stay alert.";
+                break;
+            case 'high':
+                message = "Evacuate immediately and seek higher ground!";
+                break;
+            default:
+                message = '';
+        }
+
+        alertMsg.value = message; // Set the alert message in the textarea
+        alertPreview.style.display = message ? 'block' : 'none'; // Show or hide the preview
+        alertPreview.innerText = message; // Set the preview text
+    }
+</script>
+
+{% endblock %}

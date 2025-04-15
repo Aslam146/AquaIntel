@@ -1,0 +1,313 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+<style>
+   
+
+
+   li {
+    font-size: 16px;
+}
+
+/* Tile Stats */
+.tile_stats_count {
+    text-align: center;
+    padding: 20px;
+    border-radius: 10px;
+    margin: 10px;
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.15);
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out, background 0.3s ease-in-out;
+    height: 150px;
+    width: 350px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background: #ffffff;
+}
+
+.tile_stats_count:hover {
+    transform: scale(1.05);
+    box-shadow: 4px 4px 15px rgba(0, 0, 0, 0.25);
+    background: #f8f9fa;
+}
+
+/* Card Container */
+.card-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+/* Disaster Management Cards */
+.card {
+    margin: 10px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+    flex: 1 0 30%;
+    min-width: 300px;
+    max-width: 45%;
+    height: 160px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out, background 0.3s ease-in-out;
+}
+
+/* Professional Disaster-Themed Colors */
+.card:nth-child(1) { background: #13181d; }  /* Flood Alerts */
+.card:nth-child(2) { background: #503018; }  /* River Levels */
+.card:nth-child(3) { background: rgb(78, 10, 10); }  /* Emergency Contacts */
+.card:nth-child(4) { background: #32411a; }  /* Latest News */
+.card:nth-child(5) { background: #3d1b1b; }  /* Resources */
+.card:nth-child(6) { background: #100e1d; }  /* NDRF Contact */
+
+/* Hover Effect - Smooth Color Transition & Shadow */
+.card:hover {
+    transform: scale(1.08);
+    box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.3);
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+}
+
+/* Card Title Styling */
+.card-title {
+    font-weight: bold;
+    color: white;
+    font-size: 20px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: color 0.3s ease-in-out;
+}
+
+/* Text Hover Effect */
+.card:hover .card-title {
+    color: #ffcc00;
+}
+
+/* Card Text & Links */
+.card-body {
+    text-align: center;
+}
+
+.card-text a {
+    color: rgb(8, 29, 221);
+    font-weight: bold;
+    transition: color 0.3s ease-in-out;
+}
+
+.card-text a:hover {
+    color: #ffcc00;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .card {
+        flex: 1 0 45%;
+        min-width: 300px;
+        max-width: 90%;
+    }
+}
+
+@media (max-width: 500px) {
+    .card {
+        flex: 1 0 90%;
+        min-width: 300px;
+        max-width: 90%;
+    }
+}
+</style>
+
+<div class="right_col" role="main">
+    <div class="row mt-3 mb-5">
+        <div class="dashboard_tiles">
+            <div class="dashboard_card">
+                <span class="count_top"><i class="fa fa-users"></i> Total Staff</span>
+                <div class="count">{{totstaff}}</div>
+                <span class="count_bottom"><i class="fa fa-plus"></i> <a href="{% url 'staff_table' %}" class="more_info">More Info</a></span>
+            </div>
+            <div class="dashboard_card">
+                <span class="count_top"><i class="fa fa-cloud"></i> Average Rainfall</span>
+                <div class="count">{{totrainfall}}</div>
+                <span class="count_bottom"><i class="fa fa-arrow-up"></i><a href="{% url 'raintable' %}" class="more_info">More Info</a></span>
+            </div>
+            <div class="dashboard_card">
+                <span class="count_top"><i class="fa fa-user"></i> Total Users</span>
+                <div class="count">{{totuser}}</div>
+                <span class="count_bottom"><i class="fa fa-plus"></i> <a href="{% url 'adminusertable' %}" class="more_info">More Info</a></span>
+            </div>
+            <div class="dashboard_card">
+                <span class="count_top"><i class="fa fa-home"></i> Total Camps</span>
+                <div class="count">{{totcamp}}</div>
+                <span class="count_bottom"><i class="fa fa-plus"></i> <a href="{% url 'reliefcamptable' %}" class="more_info">More Info</a></span>
+            </div>
+            <div class="dashboard_card">
+                <span class="count_top"><i class="fa fa-map-marker"> Weather</i></span>
+                <br>
+                <br>
+                <h5>Reports</h5>
+                <span class="count_bottom"><i class="fa fa-plus"></i> <a href="https://www.wunderground.com/forecast/in/pathanamthitta" class="more_info">More Info</a></span>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        /* Updated Class Names */
+        .dashboard_tiles {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            justify-content: center;
+        }
+        
+        .dashboard_card {
+            width: 200px;
+            background: linear-gradient(135deg, #1C1C1E, #3A3A3C);
+            color: white;
+            padding: 20px;
+            border-radius: 16px;
+            text-align: center;
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+        }
+        
+        .dashboard_card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        /* Titles */
+        .count_top {
+            font-size: 14px;
+            font-weight: 600;
+            opacity: 0.9;
+        }
+        
+        /* Count Numbers */
+        .count {
+            font-size: 24px;
+            font-weight: bold;
+            margin: 10px 0;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+        }
+        
+        /* Bottom Link */
+        .count_bottom {
+            font-size: 12px;
+            opacity: 0.8;
+        }
+        
+        /* More Info Button */
+        .more_info {
+            color: #0A84FF;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        
+        .more_info:hover {
+            text-decoration: underline;
+        }
+        
+        /* iPhone Themed Colors */
+        .dashboard_card:nth-child(1) { background: linear-gradient(135deg, #13181D, #1F2A33); } /* Staff */
+        .dashboard_card:nth-child(2) { background: linear-gradient(135deg, #503018, #8A4F28); } /* Rainfall */
+        .dashboard_card:nth-child(3) { background: linear-gradient(135deg, #4E0A0A, #9B2424); } /* Users */
+        .dashboard_card:nth-child(4) { background: linear-gradient(135deg, #32411A, #5A7230); } /* Camps */
+        .dashboard_card:nth-child(5) { background: linear-gradient(135deg, #3D1B1B, #772F2F); } /* Affected Area */
+        
+        </style>
+
+    <div class="row">
+        <div class="card-container">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title"><i class="fa fa-bell"></i> Flood Alerts</h5>
+                    <p class="card-text"> Active Flood Alerts . <a href="{%url 'alerttable'%}">View Details</a></p>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title"><i class="fa fa-exclamation-triangle"></i> Emergency Contacts</h5>
+                    <p class="card-text">Important contacts. <a href="{%url 'emergencycontacts'%}">View Contacts</a></p>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title"><i class="fa fa-info-circle"></i> Latest News</h5>
+                    <p class="card-text">
+                        Some latest news about floods or related information.
+                        <a href="#" id="fetchFloodNews">Read More</a>
+                    </p>
+                    <div id="newsResult" style="margin-top: 15px;"></div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title"><i class="fa fa-rss"></i> Resources</h5>
+                    <p class="card-text">Links to useful resources, websites, or documents. <a href="{%url 'useful_resources'%}">View Resources</a></p>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title"><i class="fa fa-life-ring"></i>NDRF</h5>
+                    <p class="card-text">Contact-Number <a href="{%url 'ndrf_sdrf'%}">View Details</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+
+    <!-- Chart Section -->
+    <div class="row">
+        <div class="col-md-12">
+            <canvas id="floodChart" width="400" height="200"></canvas>
+        </div>
+    </div>
+</div>
+
+<footer class="bg-dark text-light py-4">
+    <div class="container">
+        <div class="text-center mt-3">
+            <p class="mb-0">&copy; 2025 AQUAINTEL!. All Rights Reserved.</p>
+        </div>
+    </div>
+</footer>
+
+
+<script>
+    document.getElementById('fetchFloodNews').addEventListener('click', function (e) {
+        e.preventDefault();
+    
+        const newsContainer = document.getElementById('newsResult');
+        newsContainer.innerHTML = '<p>Loading flood news...</p>';
+    
+        fetch('https://newsdata.io/api/1/news?apikey=YOUR_API_KEY&q=flood&language=en')
+            .then(response => response.json())
+            .then(data => {
+                if (data.results && data.results.length > 0) {
+                    const articles = data.results.slice(0, 5); // Limit to 5 articles
+                    let html = '<ul style="padding-left: 20px;">';
+                    articles.forEach(article => {
+                        html += `<li style="margin-bottom: 10px;">
+                                    <a href="${article.link}" target="_blank" style="color:#007AFF; font-weight:500;">${article.title}</a><br>
+                                    <small>${article.pubDate}</small>
+                                </li>`;
+                    });
+                    html += '</ul>';
+                    newsContainer.innerHTML = html;
+                } else {
+                    newsContainer.innerHTML = '<p>No recent flood news found.</p>';
+                }
+            })
+            .catch(error => {
+                newsContainer.innerHTML = '<p>Error fetching news. Please try again later.</p>';
+                console.error('News Fetch Error:', error);
+            });
+    });
+    </script>
+    
+
+{% endblock %}

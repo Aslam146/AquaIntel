@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="right_col" role="main">
+    <div class="page-title">
+        <div class="title_left">
+            <h3>Rainfall Intensity Records</h3>
+        </div>
+        <div class="title_right">
+            <div class="col-md-5 col-sm-5 form-group pull-right top_search">
+                <div class="input-group">
+                    <input type="text" id="rainSearch" class="form-control" placeholder="Rainfall location...">
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="button">Go!</button>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="clearfix"></div>
+    <div class="row">
+        <div class="col-md-12 col-sm-12">
+            <div class="x_panel">
+                <div class="x_title">
+                    <h2>Rainfall Data</h2>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Rainfall ID</th>
+                                <th>Location</th>
+                                <th>Date</th>
+                                <th>Time</th>
+                                <th>Rainfall Intensity (mm/hr)</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for data in rainfall_data %}
+                            <tr>
+                                <td>{{ forloop.counter }}</td>
+                                <td>{{ data.id }}</td>
+                                <td>{{ data.location }}</td>
+                                <td>{{ data.date }}</td>
+                                <td>{{ data.time }}</td>
+                                <td>{{ data.rainfall_intensity }}</td>
+                                <td>
+                                    <a href="{% url 'rainedit' data.id %}" class="btn btn-sm btn-primary">Edit</a>
+                                    <a href="{% url 'raindelete' data.id %}" class="btn btn-sm btn-danger">Delete</a>
+                                </td>
+                            </tr>
+                            {% empty %}
+                            <tr>
+                                <td colspan="7">No rainfall data available.</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    <div class="pagination">
+                        <!-- Pagination (if needed) -->
+                        <span class="btn btn-default">Page 1 of 1</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    document.getElementById("rainSearch").addEventListener("keyup", function () {
+        let value = this.value.toLowerCase();
+        let rows = document.querySelectorAll("tbody tr");
+
+        rows.forEach(row => {
+            let text = row.innerText.toLowerCase();
+            row.style.display = text.includes(value) ? "" : "none";
+        });
+    });
+</script>
+{% endblock %}

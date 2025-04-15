@@ -1,0 +1,165 @@
+{% extends 'user/userbase.html' %}
+{% load static %}
+{% block content %}
+<!-- Page Content -->
+<div class="right_col" role="main" style="height:auto; font-family: -apple-system, BlinkMacSystemFont, 'San Francisco', 'Helvetica Neue', Helvetica, Arial, sans-serif;">
+    <div class="">
+        <div class="page-title">
+            <div class="title_left">
+                <h3 style="color: #007AFF; font-weight: 600;">Weather Prediction Management</h3>
+            </div>
+
+            <div class="title_right">
+                <div class="col-md-5 col-sm-5 form-group pull-right top_search">
+                    <!-- Optional search bar -->
+                </div>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+
+        <!-- Chart Section -->
+        <div class="row" style="display: flex; justify-content: center;">
+            <!-- Temperature Chart -->
+            <div class="col-md-6 col-sm-12">
+                <div class="x_panel" style="border-radius: 15px; box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15); background: linear-gradient(to bottom, #F2F2F7, #D1D1D6);">
+                    <div class="x_title">
+                        <h2 style="color: #1C1C1E; font-weight: 500;">Temperature Chart <small style="color: #8E8E93;">Forecast (2023-2025)</small></h2>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+                        <canvas id="temperatureChart" width="500" height="400"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Humidity Chart -->
+            <div class="col-md-6 col-sm-12">
+                <div class="x_panel" style="border-radius: 15px; box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15); background: linear-gradient(to bottom, #F2F2F7, #D1D1D6);">
+                    <div class="x_title">
+                        <h2 style="color: #1C1C1E; font-weight: 500;">Humidity Chart <small style="color: #8E8E93;">Predicted Levels</small></h2>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+                        <canvas id="humidityChart" width="500" height="400"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /Chart Section -->
+    </div>
+</div>
+<!-- /Page Content -->
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    fetch("{% url 'weather_chart_data' %}")
+        .then(response => response.json())
+        .then(data => {
+            // Temperature Chart
+            new Chart(document.getElementById("temperatureChart").getContext("2d"), {
+                type: "line",
+                data: {
+                    labels: data.labels,
+                    datasets: [{
+                        label: "Temperature (°C)",
+                        data: data.temperature,
+                        backgroundColor: "rgba(255, 159, 64, 0.1)",
+                        borderColor: "#FF9500",
+                        borderWidth: 2,
+                        pointBackgroundColor: "#FF9500",
+                        pointBorderColor: "#ffffff",
+                        pointRadius: 5,
+                        fill: true
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            ticks: {
+                                beginAtZero: true,
+                                min: 0,
+                                max: 100
+                            },
+                            title: {
+                                display: true,
+                                text: "Temperature (°C)"
+                            },
+                            grid: {
+                                color: "rgba(200,200,200,0.3)"
+                            }
+                        },
+                        x: {
+                            title: {
+                                display: true,
+                                text: "Month"
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            display: true,
+                            position: "top"
+                        }
+                    },
+                    animation: {
+                        tension: 0.4
+                    }
+                }
+            });
+
+            // Humidity Chart
+            new Chart(document.getElementById("humidityChart").getContext("2d"), {
+                type: "bar",
+                data: {
+                    labels: data.labels,
+                    datasets: [{
+                        label: "Humidity (%)",
+                        data: data.humidity,
+                        backgroundColor: "#34C759",
+                        borderColor: "#34C759",
+                        borderWidth: 2,
+                        hoverBackgroundColor: "#28A745",
+                        borderRadius: 12
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            ticks: {
+                                beginAtZero: true,
+                                min: 0,
+                                max: 100
+                            },
+                            title: {
+                                display: true,
+                                text: "Humidity (%)"
+                            },
+                            grid: {
+                                color: "rgba(200,200,200,0.3)"
+                            }
+                        },
+                        x: {
+                            title: {
+                                display: true,
+                                text: "Date"
+                            },
+                            barPercentage: 0.5,
+                            categoryPercentage: 0.7
+                        }
+                    },
+                    animation: {
+                        duration: 1000,
+                        easing: "easeInOutCubic"
+                    }
+                }
+            });
+        });
+});
+</script>
+
+{% endblock %}

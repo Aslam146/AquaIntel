@@ -1,0 +1,43 @@
+{% extends 'user/userbase.html' %}
+{% load static %}
+{% block content %}
+
+<!-- Page Content -->
+<div class="right_col" role="main" style="background: #f2f7ff; min-height: 100vh; padding: 20px;">
+    <div class="container" style="max-width: 850px; margin: 30px auto; padding: 20px; background: #f7f9fc; border-radius: 12px; box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.15);">
+        <h2 style="color: #D32F2F; text-align: center; font-size: 26px; margin-bottom: 15px;">
+            <i class="fa fa-medkit"></i> First Aid Measures for Flood Situations
+        </h2>
+        <ul style="list-style: none; padding: 0;">
+            <li class="first-aid-item"><i class="icon fa fa-tint"></i> <b>Avoid Contaminated Water:</b> Floodwaters may contain harmful bacteria. Use clean water to wash wounds.</li>
+            <li class="first-aid-item"><i class="icon fa fa-plus-circle"></i> <b>Stop Bleeding:</b> Apply firm pressure with a clean cloth or bandage to control bleeding.</li>
+            <li class="first-aid-item"><i class="icon fa fa-thermometer-three-quarters"></i> <b>Treat Hypothermia:</b> If someone is cold and shivering, wrap them in dry blankets and warm them gradually.</li>
+            <li class="first-aid-item"><i class="icon fa fa-pills"></i> <b>Disinfect Wounds:</b> Use antiseptic solutions or clean water to prevent infections.</li>
+            <li class="first-aid-item"><i class="icon fa fa-heartbeat"></i> <b>Perform CPR if Necessary:</b> In cases of drowning, check for breathing and perform CPR if needed.</li>
+            <li class="first-aid-item"><i class="icon fa fa-ambulance"></i> <b>Seek Medical Help:</b> Call emergency services or visit a relief center if injuries are serious.</li>
+        </ul>
+    </div>
+</div>
+
+<!-- Simple Styling -->
+<style>
+.first-aid-item {
+    font-size: 18px;
+    margin: 10px 0;
+    padding: 12px;
+    background: #ffffff;
+    border-left: 6px solid #D32F2F;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.icon {
+    color: #D32F2F;
+    font-size: 20px;
+    margin-right: 10px;
+}
+</style>
+
+{% endblock %}

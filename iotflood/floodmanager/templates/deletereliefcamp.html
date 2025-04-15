@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="right_col" role="main">
+        <div class="row">
+            <div class="col-md-12 col-sm-12">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h2>Delete Relief Camp Record</h2>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+                        <p>Are you sure you want to delete the relief camp record for <strong>{{ camp.camp_name }}</strong>?</p>
+                        <form method="POST">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-danger">Yes, Delete</button>
+                            <a href="{% url 'reliefcamptable' %}" class="btn btn-primary">Cancel</a>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

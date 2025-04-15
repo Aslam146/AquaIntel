@@ -1,0 +1,117 @@
+{% extends 'user/userbase.html' %}
+{% load static %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Theme & Appearance Settings</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            transition: background 0.3s, color 0.3s;
+        }
+
+        .settings-container {
+            max-width: 400px;
+            margin: 50px auto;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .setting {
+            margin-bottom: 15px;
+        }
+
+        button {
+            padding: 10px;
+            background: blue;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        /* Dark Mode */
+        body.dark-mode {
+            background: #121212;
+            color: white;
+        }
+
+        /* Font Sizes */
+        body.small-font {
+            font-size: 14px;
+        }
+
+        body.medium-font {
+            font-size: 16px;
+        }
+
+        body.large-font {
+            font-size: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="settings-container">
+        <h1>Theme & Appearance Settings</h1>
+
+        <!-- Theme Toggle -->
+        <div class="setting">
+            <label for="theme">Theme:</label>
+            <select id="theme">
+                <option value="light">Light Mode</option>
+                <option value="dark">Dark Mode</option>
+            </select>
+        </div>
+
+        <!-- Font Size Selection -->
+        <div class="setting">
+            <label for="fontSize">Font Size:</label>
+            <select id="fontSize">
+                <option value="small">Small</option>
+                <option value="medium" selected>Medium</option>
+                <option value="large">Large</option>
+            </select>
+        </div>
+
+        <button id="saveSettings">Save Settings</button>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const themeSelect = document.getElementById("theme");
+            const fontSizeSelect = document.getElementById("fontSize");
+            const saveButton = document.getElementById("saveSettings");
+
+            // Load saved settings
+            const savedTheme = localStorage.getItem("theme") || "light";
+            const savedFontSize = localStorage.getItem("fontSize") || "medium";
+
+            document.body.classList.toggle("dark-mode", savedTheme === "dark");
+            document.body.classList.add(`${savedFontSize}-font`);
+
+            themeSelect.value = savedTheme;
+            fontSizeSelect.value = savedFontSize;
+
+            saveButton.addEventListener("click", () => {
+                const selectedTheme = themeSelect.value;
+                const selectedFontSize = fontSizeSelect.value;
+
+                // Save to localStorage
+                localStorage.setItem("theme", selectedTheme);
+                localStorage.setItem("fontSize", selectedFontSize);
+
+                // Apply changes
+                document.body.classList.toggle("dark-mode", selectedTheme === "dark");
+                document.body.classList.remove("small-font", "medium-font", "large-font");
+                document.body.classList.add(`${selectedFontSize}-font`);
+            });
+        });
+    </script>
+</body>
+</html>
+
+{% endblock %}

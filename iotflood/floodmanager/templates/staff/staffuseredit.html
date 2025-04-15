@@ -1,0 +1,56 @@
+{% extends 'staff/staffdashboard.html' %}
+{% load static %}
+{% block content %}
+<div class="right_col" role="main">
+    <div class="container">
+        <div class="page-title">
+            <div class="title_left">
+                <h3>Edit User</h3>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="row">
+            <div class="col-md-12 col-sm-12">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h2>Edit User Details</h2>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+                        <form method="POST" action="{% url 'staffuseredit' user.id %}" class="form-horizontal form-label-left">
+                            {% csrf_token %}
+                            <div class="form-group row">
+                                <label class="col-md-3 col-sm-3 label-align">Name</label>
+                                <div class="col-md-6 col-sm-6">
+                                    <input type="text" name="name" class="form-control" value="{{ user.name }}" required>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-md-3 col-sm-3 label-align">Phone Number</label>
+                                <div class="col-md-6 col-sm-6">
+                                    <input type="text" name="phone_number" class="form-control" value="{{ user.phone_number }}" required>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-md-3 col-sm-3 label-align">Username</label>
+                                <div class="col-md-6 col-sm-6">
+                                    <input type="text" name="username" class="form-control" value="{{ user.username }}" required>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <div class="col-md-6 col-sm-6 offset-md-3">
+                                    <button type="submit" class="btn btn-success">Update</button>
+                                    <a href="{% url 'staffusertable' %}" class="btn btn-secondary">Cancel</a>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

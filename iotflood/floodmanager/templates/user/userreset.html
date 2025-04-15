@@ -1,0 +1,88 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Flood-Monitoring | Reset Password</title>
+  <link rel="icon" href="{% static 'images/img1.png' %}">
+  <link href="https://fonts.googleapis.com/css?family=Karla:400,700&display=swap" rel="stylesheet">
+  <link href="{% static 'assets/vendors/bootstrap/dist/css/bootstrap.min.css' %}" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+  <style>
+    body {
+      background-color: #f8f9fa;
+    }
+    .pass, .pass:hover, .pass::selection {
+      outline: none;
+      border: none;
+      overflow: hidden;
+    }
+    .card {
+      width: 100%;
+      max-width: 400px;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+  </style>
+</head>
+<body class="d-flex align-items-center justify-content-center vh-100">
+  <div class="card">
+    <h4 class="text-center">User Reset Password</h4>
+    <form method="POST" action="{% url 'user_reset_password' user_id %}">
+      {% csrf_token %}
+      <div class="mb-3">
+        <label for="password" class="form-label">New Password</label>
+        <input type="password" name="get_password" id="password" class="form-control" placeholder="Enter New Password" required>
+      </div>
+      <div class="mb-3">
+        <label for="password1" class="form-label">Confirm Password</label>
+        <div class="input-group">
+          <input type="password" name="confirm_password" id="password1" class="form-control" placeholder="Enter Password Again" required>
+          <span class="input-group-text">
+            <i class="fas fa-eye-slash eye-icon" id="togglePassword" onclick="togglePassword()"></i>
+          </span>
+        </div>
+      </div>
+      <button name="Reset_pwd" id="Reset_pwd" class="btn btn-primary w-100">Reset Password</button>
+    </form>
+    <div class="text-center mt-3">
+      <a href="{% url 'login' %}" class="text-reset">Back to Login</a>
+    </div>
+  </div>
+
+  {% if messages %}
+    <div id="message-container" class="position-fixed top-0 end-0 p-3">
+      {% for message in messages %}
+        <div class="alert {% if message.tags == 'success' %}alert-success{% else %}alert-danger{% endif %}">
+          {{ message }}
+        </div>
+      {% endfor %}
+    </div>
+  {% endif %}
+
+  <script>
+    function togglePassword() {
+      let passwordInput = document.getElementById("password1");
+      let eye = document.getElementById("togglePassword");
+      if (passwordInput.type === "password") {
+        passwordInput.type = "text";
+        eye.classList.remove("fa-eye-slash");
+        eye.classList.add("fa-eye");
+      } else {
+        passwordInput.type = "password";
+        eye.classList.remove("fa-eye");
+        eye.classList.add("fa-eye-slash");
+      }
+    }
+    setTimeout(function() {
+      let messageContainer = document.getElementById("message-container");
+      if (messageContainer) {
+        messageContainer.style.opacity = "0";
+        setTimeout(() => messageContainer.remove(), 500);
+      }
+    }, 5000);
+  </script>
+</body>
+</html>

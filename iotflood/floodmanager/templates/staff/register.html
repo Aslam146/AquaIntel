@@ -1,0 +1,119 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AQUAINTEL| Register</title>
+
+  <!-- Bootstrap -->
+  <link href="{% static 'assets/vendors/bootstrap/dist/css/bootstrap.min.css' %}" rel="stylesheet">
+  <!-- Font Awesome -->
+  <link href="{% static 'assets/vendors/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet">
+
+  <style>
+    body {
+      background: url("{% static 'assets/images/bg.jpg' %}") no-repeat center center fixed;
+      background-size: cover;
+    }
+    .login_wrapper {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .form_container {
+      background: rgba(255, 255, 255, 0.9);
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
+      max-width: 500px;
+      width: 100%;
+    }
+    .form_container h1 {
+      font-size: 24px;
+      margin-bottom: 20px;
+      text-align: center;
+      font-weight: bold;
+      color: #333;
+    }
+    .form_container input, .form_container select, .form_container textarea {
+      margin-bottom: 15px;
+    }
+    .btn-custom {
+      background: #007bff;
+      color: white;
+      width: 100%;
+      padding: 10px;
+      border-radius: 5px;
+      border: none;
+      font-size: 16px;
+      transition: 0.3s;
+    }
+    .btn-custom:hover {
+      background: #0056b3;
+    }
+    .form_footer {
+      text-align: center;
+      margin-top: 15px;
+    }
+    .form_footer a {
+      color: #007bff;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    .form_footer a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="login_wrapper">
+    <div class="form_container">
+      <section class="login_content">
+        <form method="post" action="{% url 'register' %}">
+          {% csrf_token %}
+          <h1>Create Account</h1>
+          <div>
+            <input type="text" name="full_name" class="form-control" placeholder="Full Name" required />
+          </div>
+          <div>
+            <select name="gender" class="form-control" required>
+              <option value="" disabled selected>Select Gender</option>
+              <option value="male">Male</option>
+              <option value="female">Female</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+          <div>
+            <input type="text" name="email" class="form-control" placeholder="email" required />
+          </div>
+          <div>
+            <textarea name="address" class="form-control" placeholder="Address" rows="3" required></textarea>
+          </div>
+          <div>
+            <input type="text" name="phone_number" class="form-control" placeholder="Phone Number" required />
+          </div>
+          <div>
+            <input type="text" name="location" class="form-control" placeholder="Location" required />
+          </div>
+          <div>
+            <input type="text" name="username" class="form-control" placeholder="Username" required />
+          </div>
+          <div>
+            <input type="password" name="password" class="form-control" placeholder="Password" required />
+          </div>
+          <div>
+            <button type="submit" class="btn btn-custom">Register</button>
+          </div>
+          <div class="form_footer">
+            <p>Already a member? <a href="{% url 'login' %}">Log in</a></p>
+          </div>
+        </form>
+      </section>
+    </div>
+  </div>
+</body>
+</html>

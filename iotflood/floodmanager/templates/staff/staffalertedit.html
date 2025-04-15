@@ -1,0 +1,84 @@
+{% extends 'staff/staffdashboard.html' %}
+{% load static %}
+{% block content %}
+<!-- Page Content -->
+<div class="right_col" role="main">
+    <div class="">
+        <div class="page-title">
+            <div class="title_left">
+                <h3>Edit Flood Alert</h3>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="row">
+            <div class="col-md-12 col-sm-12">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h2>Edit Alert</h2>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+                        <form id="edit-alert-form" method="post" class="form-horizontal form-label-left">
+                            {% csrf_token %}
+                            
+                            <div class="form-group row">
+                                <label class="col-md-3 col-sm-3 col-form-label label-align">Alert Message</label>
+                                <div class="col-md-6 col-sm-6">
+                                    <textarea name="alert_msg" class="form-control" required>{{ alert.alert_msg }}</textarea>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group row">
+                                <label class="col-md-3 col-sm-3 col-form-label label-align">Landscape Level</label>
+                                <div class="col-md-6 col-sm-6">
+                                    <select name="landscape_level" class="form-control" required>
+                                        <option value="high" {% if alert.landscape_level == "high" %}selected{% endif %}>High</option>
+                                        <option value="moderate" {% if alert.landscape_level == "moderate" %}selected{% endif %}>Moderate</option>
+                                        <option value="low" {% if alert.landscape_level == "low" %}selected{% endif %}>Low</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-md-3 col-sm-3 col-form-label label-align">Location</label>
+                                <div class="col-md-6 col-sm-6">
+                                    <select name="location" class="form-control" required>
+                                        <option value="Adoor" {% if alert.location == "Adoor" %}selected{% endif %}>Adoor</option>
+                                        <option value="Konni" {% if alert.location == "Konni" %}selected{% endif %}>Konni</option>
+                                        <option value="Kozhencherry" {% if alert.location == "Kozhencherry" %}selected{% endif %}>Kozhencherry</option>
+                                        <option value="Mallappally" {% if alert.location == "Mallappally" %}selected{% endif %}>Mallappally</option>
+                                        <option value="Ranni" {% if alert.location == "Ranni" %}selected{% endif %}>Ranni</option>
+                                        <option value="Thiruvalla" {% if alert.location == "Thiruvalla" %}selected{% endif %}>Thiruvalla</option>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group row">
+                                <label class="col-md-3 col-sm-3 col-form-label label-align">Route</label>
+                                <div class="col-md-6 col-sm-6">
+                                    <textarea name="route" class="form-control" required>{{ alert.route }}</textarea>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group row">
+                                <label class="col-md-3 col-sm-3 col-form-label label-align">Alert Date</label>
+                                <div class="col-md-6 col-sm-6">
+                                    <input type="date" name="alert_date" class="form-control" required value="{{ alert.alert_date|date:'Y-m-d' }}">
+                                </div>
+                            </div>
+                            
+                            <div class="ln_solid"></div>
+                            <div class="form-group row">
+                                <div class="col-md-6 col-sm-6 offset-md-3">
+                                    <button class="btn btn-primary" type="button" onclick="window.history.back();">Cancel</button>
+                                    <button class="btn btn-success" type="submit">Update</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /Page Content -->
+{% endblock %}

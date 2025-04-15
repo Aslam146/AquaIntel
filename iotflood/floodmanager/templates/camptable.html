@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<!-- page content -->
+<div class="right_col" role="main">
+    <div class="">
+        <div class="page-title">
+            <div class="title_left">
+                <h3>Relief Camp Management</h3>
+            </div>
+
+            <div class="title_right">
+                <div class="col-md-5 col-sm-5 form-group pull-right top_search">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Search relief camps...">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="button">Go!</button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="row">
+            <div class="col-md-12 col-sm-12">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h2>Relief Camp Details <small>Manage relief camp records</small></h2>
+                        <ul class="nav navbar-right panel_toolbox">
+                            <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
+                            <li><a class="close-link"><i class="fa fa-close"></i></a></li>
+                        </ul>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+                        <br />
+                        <table class="table table-striped table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Camp ID</th>
+                                    <th>Camp Name</th>
+                                    <th>Location</th>
+                                    <th>Capacity</th>
+                                    <th>Current Occupants</th>
+                                    <th>Contact Person</th>
+                                    <th>Contact Number</th>
+                                    <th>Amenities</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for camp in relief_camps %}
+                                <tr>
+                                    <td>{{ camp.camp_id }}</td>
+                                    <td>{{ camp.camp_name }}</td>
+                                    <td>{{ camp.location }}</td>
+                                    <td>{{ camp.capacity }}</td>
+                                    <td>{{ camp.current_occupants }}</td>
+                                    <td>{{ camp.contact_person }}</td>
+                                    <td>{{ camp.contact_number }}</td>
+                                    <td>
+                                        {% if camp.amenities %}
+                                            {% for amenity in camp.amenities.all %}
+                                                {{ amenity }}<br>
+                                            {% endfor %}
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        <a href="{% url 'editreliefcamp' camp.id %}" class="btn btn-warning btn-xs">Edit</a>
+                                        <a href="{% url 'deletereliefcamp' camp.id %}" class="btn btn-danger btn-xs" onclick="return confirm('Are you sure you want to delete this camp?')">Delete</a>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /page content -->
+{% endblock %}

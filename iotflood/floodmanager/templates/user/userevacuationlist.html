@@ -1,0 +1,61 @@
+{% extends 'user/userbase.html' %}
+{% load static %}
+{% block content %}
+<div class="right_col" role="main" style="height:auto;">
+    <div class="page-title">
+        <div class="title_left">
+            <h3 style="color: #007AFF;">Evacuation Records</h3>
+        </div>
+    </div>
+
+    <div class="clearfix"></div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="x_panel">
+                <div class="x_title">
+                    <h2>Evacuation List</h2>
+                    <div class="clearfix"></div>
+                </div>
+
+                <div class="x_content">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Location</th>
+                                <th>Date</th>
+                                <th>Time</th>
+                                <th>People Evacuated</th>
+                                <th>Evacuation Center</th>
+                                <th>Contact</th>
+                                <th>Transport</th>
+                                <th>Supply</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for record in evacuation_records %}
+                            <tr>
+                                <td>{{ forloop.counter }}</td>
+                                <td>{{ record.location.name }}</td>
+                                <td>{{ record.evacuationdate }}</td>
+                                <td>{{ record.evacuationtime }}</td>
+                                <td>{{ record.people_evacuated }}</td>
+                                <td>{{ record.evacuation_center }}</td>
+                                <td>{{ record.contact_person }}<br>{{ record.contact_number }}</td>
+                                <td>{{ record.transport_method.name }}</td>
+                                <td>{{ record.emergency_supply.name }}</td>
+                            </tr>
+                            {% empty %}
+                            <tr>
+                                <td colspan="9" style="text-align:center;">No evacuation records available.</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,105 @@
+{% extends 'user/userbase.html' %}
+{% load static %}
+{% block content %}
+<!-- Page Content -->
+<div class="right_col" role="main" style="height:auto; font-family: -apple-system, BlinkMacSystemFont, 'San Francisco', 'Helvetica Neue', Helvetica, Arial, sans-serif;">
+    <div class="">
+        <div class="page-title">
+            <div class="title_left">
+                <h3 style="color: #007AFF; font-weight: 600;">Water Level Management</h3>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+
+        <!-- Chart Section -->
+        <div class="row" style="display: flex; justify-content: center;">
+            <!-- Water Level Chart -->
+            <div class="col-md-6 col-sm-12">
+                <div class="x_panel" style="border-radius: 15px; box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15); background: linear-gradient(to bottom, #F2F2F7, #D1D1D6);">
+                    <div class="x_title">
+                        <h2 style="color: #1C1C1E; font-weight: 500;">Water Level Chart <small style="color: #8E8E93;">Current Status</small></h2>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+                        <canvas id="waterLevelChart" width="500" height="400"></canvas>
+                        <!-- 🔽 Add last updated time display here -->
+                        <div id="lastUpdatedTimes" style="margin-top: 30px; padding: 10px; background-color: #F9F9F9; border-radius: 10px;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /Chart Section -->
+    </div>
+</div>
+<!-- /Page Content -->
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    fetch("{% url 'water_chart_data' %}")
+        .then(response => response.json())
+        .then(data => {
+            const ctx = document.getElementById("waterLevelChart").getContext("2d");
+
+            new Chart(ctx, {
+                type: "pie",
+                data: {
+                    labels: data.labels,
+                    datasets: [{
+                        label: "Water Level (meters)",
+                        data: data.water_level,
+                        backgroundColor: [
+                            "#007AFF", "#34C759", "#FF9500", "#FF3B30", "#AF52DE"
+                        ],
+                        borderColor: "#ffffff",
+                        borderWidth: 2,
+                        hoverBackgroundColor: [
+                            "#005ECC", "#28A745", "#E68500", "#D7261B", "#8A34BC"
+                        ],
+                        hoverBorderWidth: 3,
+                        hoverOffset: 8
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: true, position: "top" },
+                        tooltip: {
+                            enabled: true,
+                            callbacks: {
+                                label: function(context) {
+                                    const index = context.dataIndex;
+                                    const label = context.label || '';
+                                    const value = context.dataset.data[index];
+                                    const time = data.timestamps[index];
+                                    return `${label}: ${value} meters\nLast Updated: ${time}`;
+                                }
+                            }
+                        }
+                    },
+                    animation: {
+                        animateScale: true,
+                        animateRotate: true
+                    }
+                }
+            });
+
+            // ✅ Show last updated times below the chart
+            const timestampContainer = document.getElementById("lastUpdatedTimes");
+            timestampContainer.innerHTML = "<h4 style='color: #333;'>Last Updated Times</h4>";
+            const ul = document.createElement("ul");
+            ul.style.listStyleType = "none";
+            ul.style.paddingLeft = "0";
+            data.timestamps.forEach((time, index) => {
+                const li = document.createElement("li");
+                li.style.marginBottom = "5px";
+                li.innerHTML = `<strong>${data.labels[index]}</strong>: ${time}`;
+                ul.appendChild(li);
+            });
+            timestampContainer.appendChild(ul);
+        });
+});
+</script>
+
+{% endblock %}

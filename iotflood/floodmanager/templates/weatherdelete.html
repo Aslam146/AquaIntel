@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="right_col" role="main">
+    <div class="page-title">
+        <div class="title_left">
+            <h3>Delete Weather Prediction</h3>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+    <div class="row">
+        <div class="col-md-12 col-sm-12">
+            <div class="x_panel">
+                <div class="x_title">
+                    <h2>Confirm Deletion</h2>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                    <p>Are you sure you want to delete the weather prediction for <strong>{{ prediction.location }}</strong> on <strong>{{ prediction.date }}</strong>?</p>
+                    <form method="POST">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger">Yes, Delete</button>
+                        <a href="javascript:history.back()" class="btn btn-secondary">Cancel</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

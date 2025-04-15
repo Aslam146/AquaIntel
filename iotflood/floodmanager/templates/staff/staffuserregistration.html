@@ -1,0 +1,168 @@
+{% extends 'staff/staffdashboard.html' %}
+
+{% load static %}
+{% block content %}
+<!-- page content -->
+<div class="right_col" role="main">
+    <div class="container">
+        <div class="page-title">
+            <div class="title_left">
+                <h3>User Registration</h3>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="row">
+            <div class="col-md-12 col-sm-12">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h2>Register User <small>Enter User details</small></h2>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+                        <br />
+                        <form method="POST" action="{%url  'staffuserregistration'%}" data-parsley-validate class="form-horizontal form-label-left">
+                            {% csrf_token %}
+                            <div class="form-group row">
+                                <label for="name" class="col-md-3 col-sm-3 label-align">Name <span class="required">*</span></label>
+                                <div class="col-md-6 col-sm-6">
+                                    <input type="text" id="name" name="name" required="required" class="form-control" placeholder="Enter Name">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="address" class="col-md-3 col-sm-3 label-align">Address <span class="required">*</span></label>
+                                <div class="col-md-6 col-sm-6">
+                                    <textarea id="address" name="address" required="required" class="form-control" placeholder="Enter Address"></textarea>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="dob" class="col-md-3 col-sm-3 label-align">Date of Birth <span class="required">*</span></label>
+                                <div class="col-md-6 col-sm-6">
+                                    <input type="date" id="dob" name="dob" required="required" class="form-control">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="sex" class="col-md-3 col-sm-3 label-align">Sex <span class="required">*</span></label>
+                                <div class="col-md-6 col-sm-6">
+                                    <label><input type="radio" name="sex" value="Male" required> Male</label>
+                                    <label><input type="radio" name="sex" value="Female" required> Female</label>
+                                    <label><input type="radio" name="sex" value="Other" required> Other</label>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="marital_status" class="col-md-3 col-sm-3 label-align">Marital Status <span class="required">*</span></label>
+                                <div class="col-md-6 col-sm-6">
+                                    <label><input type="radio" name="marital_status" value="Single" required> Single</label>
+                                    <label><input type="radio" name="marital_status" value="Married" required> Married</label>
+                                    <label><input type="radio" name="marital_status" value="Divorced" required> Divorced</label>
+                                    <label><input type="radio" name="marital_status" value="Widowed" required> Widowed</label>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="aadhaar_no" class="col-md-3 col-sm-3 label-align">Aadhaar Card No <span class="required">*</span></label>
+                                <div class="col-md-6 col-sm-6">
+                                    <input type="text" id="aadhaar_no" name="aadhaar_no" required="required" class="form-control" placeholder="Enter Aadhaar Number">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="landscape_level" class="col-md-3 col-sm-3 label-align">Landscape Level</label>
+                                <div class="col-md-6 col-sm-6">
+                                    <input type="text" id="landscape_level" name="landscape_level" class="form-control" placeholder="Enter Landscape Level">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="phone_number" class="col-md-3 col-sm-3 label-align">Phone Number <span class="required">*</span></label>
+                                <div class="col-md-6 col-sm-6">
+                                    <input type="text" id="phone_number" name="phone_number" required="required" class="form-control" placeholder="Enter Phone Number">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="occupation" class="col-md-3 col-sm-3 label-align">Occupation</label>
+                                <div class="col-md-6 col-sm-6">
+                                    <input type="text" id="occupation" name="occupation" class="form-control" placeholder="Enter Occupation">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="house_no" class="col-md-3 col-sm-3 label-align">House No <span class="required">*</span></label>
+                                <div class="col-md-6 col-sm-6">
+                                    <input type="text" id="house_no" name="house_no" required="required" class="form-control" placeholder="Enter House No">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="location" class="col-md-3 col-sm-3 label-align">Location <span class="required">*</span></label>
+                                <div class="col-md-6 col-sm-6">
+                                    <input type="text" id="location" name="location" required="required" class="form-control" placeholder="Enter Location">
+                                </div>
+                            </div>
+
+                            <div class="form-group row" id="members_section">
+                                <label class="col-md-3 col-sm-3 label-align">Members in the House</label>
+                                <div class="col-md-6 col-sm-6">
+                                    <button type="button" class="btn btn-primary" onclick="addMember()">Add Member</button>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="username" class="col-md-3 col-sm-3 label-align">Username <span class="required">*</span></label>
+                                <div class="col-md-6 col-sm-6">
+                                    <input type="text" id="username" name="username" required="required" class="form-control" placeholder="Enter Username">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="password" class="col-md-3 col-sm-3 label-align">Password <span class="required">*</span></label>
+                                <div class="col-md-6 col-sm-6">
+                                    <input type="password" id="password" name="password" required="required" class="form-control" placeholder="Enter Password">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="mail" class="col-md-3 col-sm-3 label-align">Email <span class="required">*</span></label>
+                                <div class="col-md-6 col-sm-6">
+                                    <input type="email" id="mail" name="useremail" required="required" class="form-control" placeholder="Enter Email">
+                                </div>
+                            </div>
+
+                            <div class="ln_solid"></div>
+
+                            <div class="form-group row">
+                                <div class="col-md-6 col-sm-6 offset-md-3">
+                                    <button class="btn btn-primary" type="button">Cancel</button>
+                                    <button class="btn btn-primary" type="reset">Reset</button>
+                                    <button type="submit" class="btn btn-success">Register</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+function addMember() {
+    const section = document.getElementById("members_section");
+    const div = document.createElement("div");
+    div.className = "col-md-6 col-sm-6 offset-md-3 member-input";
+    div.innerHTML = '<input type="text" name="member_name[]" class="form-control" placeholder="Member Name">' +
+                    '<input type="text" name="member_phone[]" class="form-control" placeholder="Phone Number">' +
+                    '<button type="button" class="btn btn-danger btn-sm" onclick="removeMember(this)">Delete</button>';
+    section.appendChild(div);
+}
+
+function removeMember(button) {
+    const memberDiv = button.parentElement;
+    memberDiv.remove();
+}
+</script>
+
+{% endblock %}

@@ -1,0 +1,25 @@
+ body {
+            background-color: #ffffff;
+            color: #333;
+            transition: background 0.3s, color 0.3s;
+        }
+
+        /* Dark Mode */
+        body.dark-mode {
+            background-color: #121212;
+            color: #ffffff;
+        }
+
+        /* Icon Styling */
+        .dark-mode-toggle {
+            font-size: 24px;
+            cursor: pointer;
+            padding: 10px;
+            border-radius: 50%;
+            transition: background 0.3s;
+        }
+
+        /* Hover Effect */
+        .dark-mode-toggle:hover {
+            background: rgba(0, 0, 0, 0.1);
+        }

@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="right_col" role="main" style="height:auto;">
+    <div class="">
+        <div class="page-title">
+            <div class="title_left">
+                <h3>Weather Data Analysis</h3>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+
+        <!-- Pie Chart Section -->
+        <div class="row">
+            <div class="col-md-6 col-sm-12">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h2>Weather Data Pie Chart <small>Temperature & Humidity</small></h2>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+                        <canvas id="weatherPieChart" width="500" height="400"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /Pie Chart Section -->
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const ctx = document.getElementById("weatherPieChart").getContext("2d");
+
+        fetch("{% url 'weather_pie_chart_data' %}")
+            .then(response => response.json())
+            .then(data => {
+                new Chart(ctx, {
+                    type: "pie",
+                    data: {
+                        labels: data.labels,
+                        datasets: [
+                            {
+                                label: "Average Temperature (°C)",
+                                data: data.temperature_data,
+                                backgroundColor: ["#FF5733", "#FFBD33", "#33FF57", "#337BFF"],
+                                borderWidth: 1,
+                            },
+                            {
+                                label: "Average Humidity (%)",
+                                data: data.humidity_data,
+                                backgroundColor: ["#6A1B9A", "#283593", "#1565C0", "#00897B"],
+                                borderWidth: 1,
+                            }
+                        ]
+                    },
+                    options: {
+                        responsive: true,
+                        plugins: {
+                            legend: {
+                                position: "top"
+                            }
+                        }
+                    }
+                });
+            });
+    });
+</script>
+
+{% endblock %}

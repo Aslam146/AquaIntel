@@ -1,0 +1,95 @@
+{% extends 'staff/staffdashboard.html' %}
+{% load static %}
+{% block content %}
+<!-- Page Content -->
+<div class="right_col" role="main">
+    <div class="">
+        <div class="page-title">
+            <div class="title_left">
+                <h3>Flood Alert Management</h3>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="row">
+            <div class="col-md-12 col-sm-12">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h2>Manage Flood Alerts</h2>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+                        <br />
+                        <form    method="POST", action="{%url 'staffalert'%}" 
+                        data-parsley-validate class="form-horizontal form-label-left">
+                        {% csrf_token %}
+                            
+                            <!-- Alert Message -->
+                            <div class="form-group row">
+                                <label class="col-md-3 col-sm-3 col-form-label label-align">Alert Message <span class="required">*</span></label>
+                                <div class="col-md-6 col-sm-6">
+                                    <textarea id="alert_msg" name="alert_msg" required class="form-control" placeholder="Enter alert message"></textarea>
+                                </div>
+                            </div>
+                            
+                            <!-- Landscape Level -->
+                            <div class="form-group row">
+                                <label class="col-md-3 col-sm-3 col-form-label label-align">Landscape Level <span class="required">*</span></label>
+                                <div class="col-md-6 col-sm-6">
+                                    <select id="landscape_level" name="landscape_level" required class="form-control">
+                                        <option value="">Select Landscape Level</option>
+                                        <option value="high">High</option>
+                                        <option value="moderate">Moderate</option>
+                                        <option value="low">Low</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="location" class="col-md-3 col-sm-3 label-align">Location <span class="required">*</span></label>
+                                <div class="col-md-6 col-sm-6">
+                                    <select id="location" name="location" required="required" class="form-control">
+                                        <option value="">Select Taluk</option>
+                                        <option value="Adoor">Adoor</option>
+                                        <option value="Konni">Konni</option>
+                                        <option value="Kozhencherry">Kozhencherry</option>
+                                        <option value="Mallappally">Mallappally</option>
+                                        <option value="Ranni">Ranni</option>
+                                        <option value="Thiruvalla">Thiruvalla</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-md-3 col-sm-3 col-form-label label-align">Route <span class="required">*</span></label>
+                                <div class="col-md-6 col-sm-6">
+                                    <textarea id="route" name="route" required class="form-control" placeholder="Enter Route link "></textarea>
+                                </div>
+                            </div>
+                            <!-- Alert Date -->
+                            <div class="form-group row">
+                                <label class="col-md-3 col-sm-3 col-form-label label-align">Alert Date <span class="required">*</span></label>
+                                <div class="col-md-6 col-sm-6">
+                                    <input type="date" id="alert_date" name="alert_date" required class="form-control">
+                                </div>
+                            </div>
+                            
+                            <div class="ln_solid"></div>
+                            <div class="form-group row">
+                                <div class="col-md-6 col-sm-6 offset-md-3">
+                                    <button class="btn btn-primary" type="button">Cancel</button>
+                                    <button class="btn btn-primary" type="reset">Reset</button>
+                                    <button type="submit" class="btn btn-success">Submit</button>
+                                </div>
+                            </div>
+                        </form>
+                        {% if messages %}
+									{% for message in messages %}
+									<p style="color:green;">{{message}}</p> 
+									{% endfor %}
+							        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /Page Content -->
+{% endblock %}

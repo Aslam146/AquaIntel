@@ -1,0 +1,84 @@
+{% extends 'user/userbase.html' %}
+{% load static %}
+{% block content %}
+
+<style>
+    body {
+        font-family: -apple-system, BlinkMacSystemFont, "San Francisco", Arial, sans-serif;
+        background: linear-gradient(135deg, #ddeaff, #c2d8ff);
+        overflow-x: hidden;
+        color: #333;
+    }
+
+    .page-title {
+        margin-bottom: 20px;
+        text-align: center;
+    }
+
+    .page-title h2 {
+        font-size: 24px;
+        font-weight: bold;
+        color: #007AFF;
+    }
+
+    .alert-container {
+        display: flex;
+        justify-content: center;
+        margin-top: 20px;
+    }
+
+    .alert-card {
+        background: white;
+        border-radius: 12px;
+        padding: 15px;
+        margin-bottom: 15px;
+        width: 80%;
+        max-width: 600px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .alert-title {
+        font-size: 18px;
+        font-weight: bold;
+        color: #d32f2f;
+    }
+
+    .alert-details {
+        font-size: 14px;
+        color: #555;
+    }
+
+    .no-alerts {
+        text-align: center;
+        font-size: 16px;
+        font-weight: bold;
+        color: #555;
+    }
+</style>
+
+<div class="container">
+    <div class="page-title">
+        <h2>🚨 Flood Alerts for Your Area</h2>
+    </div>
+    <br>
+    <div class="alert-container">
+        <div class="alert-card">
+            {% if alerts %}
+                {% for alert in alerts %}
+                    <div class="alert-card">
+                        <p class="alert-title">{{ alert.alert_msg }}</p>
+                        <p class="alert-details"><strong>Location:</strong> {{ alert.location }}</p>
+                        <p class="alert-details"><strong>Landscape Level:</strong> {{ alert.get_landscape_level_display }}</p>
+                        <p class="alert-details"><strong>Date:</strong> {{ alert.alert_date }}</p>
+                        <p class="alert-details"><strong>Route Info:</strong> {{ alert.route }}</p>
+                    </div>
+                {% endfor %}
+            {% else %}
+            
+                <p class="no-alerts">✅ No flood alerts for your location.</p>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+{% endblock %}

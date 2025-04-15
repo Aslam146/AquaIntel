@@ -1,0 +1,85 @@
+{% extends 'staff/staffdashboard.html' %}
+{% load static %}
+{% block content %}
+<div class="right_col" role="main">
+    <div class="page-title">
+        <div class="title_left">
+            <h3>Evacuation Records</h3>
+        </div>
+        <div class="title_right">
+            <div class="col-md-5 col-sm-5 form-group pull-right top_search">
+                <div class="input-group">
+                    <input type="text" id="evSearch" class="form-control" placeholder="Search location...">
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="button">Go!</button>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="clearfix"></div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="x_panel">
+                <div class="x_title">
+                    <h2>Evacuation List</h2>
+                    <div class="clearfix"></div>
+                </div>
+
+                <div class="x_content">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Location</th>
+                                <th>Date</th>
+                                <th>People Evacuated</th>
+                                <th>Transport Method</th>
+                                <th>Emergency Supply</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for record in evacaution %}
+                            <tr>
+                                <td>{{ forloop.counter }}</td>
+                                <td>{{ record.location.name }}</td>
+                                <td>{{ record.evacuationdate }}</td>
+                                <td>{{ record.people_evacuated }}</td>
+                                <td>{{ record.transport_method.name }}</td>
+                                <td>{{ record.emergency_supply.name }}</td>
+                                <td>
+                                    <a href="{% url 'staffeditevacuation' record.id %}" class="btn btn-warning btn-sm">Edit</a>
+                                    <a href="{% url 'staffdeleteevacuation' record.id %}" class="btn btn-danger btn-sm">Delete</a>
+                                </td>
+                            </tr>
+                            {% empty %}
+                            <tr>
+                                <td colspan="7" class="text-center">No evacuation records found.</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    <div class="pagination">
+                        <!-- Pagination (if needed) -->
+                        <span class="btn btn-default">Page 1 of 1</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    document.getElementById("evSearch").addEventListener("keyup", function () {
+        let value = this.value.toLowerCase();
+        let rows = document.querySelectorAll("tbody tr");
+
+        rows.forEach(row => {
+            let text = row.innerText.toLowerCase();
+            row.style.display = text.includes(value) ? "" : "none";
+        });
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<!-- page content -->
+<div class="right_col" role="main">
+    <div class="">
+        <div class="page-title">
+            <div class="title_left">
+                <h3>Weather Prediction</h3>
+            </div>
+
+            <!-- <div class="title_right">
+                <div class="col-md-5 col-sm-5 form-group pull-right top_search">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Search location...">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="button">Go!</button>
+                        </span>
+                    </div>
+                </div>
+            </div> -->
+        </div>
+        <div class="clearfix"></div>
+        <div class="row">
+            <div class="col-md-12 col-sm-12">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h2>Weather Prediction <small>Enter details to get weather forecast</small></h2>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+                        <br />
+                        <form    method="POST", action="{%url 'weather'%}" 
+									data-parsley-validate class="form-horizontal form-label-left">
+									{% csrf_token %}
+
+                            <div class="item form-group">
+                                <label class="col-form-label col-md-3 col-sm-3 label-align">Location <span class="required">*</span></label>
+                                <div class="col-md-6 col-sm-6">
+                                    <input type="text" id="location" name="location" required="required" class="form-control">
+                                </div>
+                            </div>
+
+                            <div class="item form-group">
+                                <label class="col-form-label col-md-3 col-sm-3 label-align">Date <span class="required">*</span></label>
+                                <div class="col-md-6 col-sm-6">
+                                    <input type="date" id="date" name="date" required="required" class="form-control">
+                                </div>
+                            </div>
+
+                            <div class="item form-group">
+                                <label class="col-form-label col-md-3 col-sm-3 label-align">Temperature (°C)</label>
+                                <div class="col-md-6 col-sm-6">
+                                    <input type="number" id="temperature" name="temperature"
+                                           class="form-control"
+                                           value="{{ temperature_value }}"
+                                           style="background-color: #f0f0f0;">
+                                </div>
+                            </div>
+                            
+                            <div class="item form-group">
+                                <label class="col-form-label col-md-3 col-sm-3 label-align">Humidity (%)</label>
+                                <div class="col-md-6 col-sm-6">
+                                    <input type="number" id="humidity" name="humidity"
+                                           class="form-control"
+                                           value="{{ humidity_value }}"
+                                            style="background-color: #f0f0f0;">
+                                </div>
+                            </div>
+                            
+
+                            <div class="ln_solid"></div>
+                            <div class="item form-group">
+                                <div class="col-md-6 col-sm-6 offset-md-3">
+                                    <button class="btn btn-primary" type="button">Cancel</button>
+                                    <button class="btn btn-primary" type="reset">Reset</button>
+                                    <button type="submit" class="btn btn-success">Submit</button>
+                                </div>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /page content -->
+{% endblock %}

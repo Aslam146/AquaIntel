@@ -1,0 +1,208 @@
+{% extends 'staff/staffdashboard.html' %}
+{% load static %}
+{% block content %}
+<!-- page content -->
+<div class="right_col" role="main" style="height:auto;">
+    <div class="">
+        <div class="page-title">
+            <div class="title_left">
+                <h3>Rainfall Intensity Management</h3>
+            </div>
+
+            <!-- <div class="title_right">
+                <div class="col-md-5 col-sm-5 form-group pull-right top_search">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Search rainfall data...">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="button">Go!</button>
+                        </span>
+                    </div>
+                </div>
+            </div> -->
+        </div>
+        <div class="clearfix"></div>
+      
+        <!-- Chart Section -->
+        <div class="row">
+            <div class="col-md-6 col-sm-12">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h2>Rainfall Intensity Chart <small>High Intensity Months (2023-2025)</small></h2>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+                        <canvas id="rainfallChart" width="500" height="400"></canvas>
+
+                    </div>
+                </div>
+            </div>
+        
+
+        <!-- Bar Chart Section -->
+        
+            <div class="col-md-6 col-sm-12">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h2>Daily Rainfall Bar Chart <small>High Intensity Days</small></h2>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+                        <canvas id="dailyRainfallChart"  width="500" height="400"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        
+        <!-- /Chart Section -->
+
+    </div>
+</div>
+<!-- /page content -->
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    <!-- Add this script inside your HTML file -->
+
+   document.addEventListener("DOMContentLoaded", function () {
+            const ctx = document.getElementById("rainfallChart").getContext("2d");
+
+            // Fetch rainfall data from the Django view
+            fetch("{% url 'rainfall_chart_data' %}")
+                .then(response => response.json())
+                .then(data => {
+                    new Chart(ctx, {
+                        type: "line",
+                        data: {
+                            labels: data.labels,
+                            datasets: [{
+                                label: "Rainfall Intensity (mm/hr)",
+                                data: data.data,
+                                backgroundColor: "rgba(75, 192, 192, 0.2)",
+                                borderColor: "rgba(75, 192, 192, 1)",
+                                borderWidth: 2,
+                                fill: true
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            scales: {
+                                y: {
+                                    beginAtZero: true,
+                                    title: {
+                                        display: true,
+                                        text: "Intensity (mm/hr)"
+                                    }
+                                },
+                                x: {
+                                    title: {
+                                        display: true,
+                                        text: "Month"
+                                    }
+                                }
+                            },
+                            plugins: {
+                                legend: {
+                                    display: true,
+                                    position: "top"
+                                }
+                            }
+                        }
+                    });
+                });
+        });
+
+    // Rainfall Intensity Line Chart for High Intensity Months
+//     const ctx1 = document.getElementById('rainfallChart').getContext('2d');
+// const rainfallChart = new Chart(ctx1, {
+//     type: 'line',
+//     data: {
+//         labels: ['2023-06', '2023-07', '2023-08', '2024-06', '2024-07', '2024-08', '2025-06', '2025-07'], // High intensity months
+//         datasets: [{
+//             label: 'Rainfall Intensity (mm/hr)',
+//             data: [15, 20, 25, 18, 22, 30, 28, 35], // Sample intensity data
+//             backgroundColor: 'rgba(75, 192, 192, 0.2)',
+//             borderColor: 'rgba(75, 192, 192, 1)',
+//             borderWidth: 2,
+//             fill: true
+//         }]
+//     },
+//     options: {
+//         responsive: false,  // Disable auto-resizing
+//         maintainAspectRatio: false, // Allow custom size
+//         scales: {
+//             y: {
+//                 beginAtZero: true,
+//                 title: {
+//                     display: true,
+//                     text: 'Intensity (mm/hr)'
+//                 }
+//             },
+//             x: {
+//                 title: {
+//                     display: true,
+//                     text: 'Month'
+//                 }
+//             }
+//         },
+//         plugins: {
+//             legend: {
+//                 display: true,
+//                 position: 'top'  // Keeps legend in a compact layout
+//             }
+//         }
+//     }
+// });
+
+
+    // Daily Rainfall Bar Chart for High Intensity Days
+    document.addEventListener("DOMContentLoaded", function () {
+    const ctx2 = document.getElementById("dailyRainfallChart").getContext("2d");
+
+    fetch("{% url 'daily_rainfall_chart_data' %}")
+        .then(response => response.json())
+        .then(data => {
+            new Chart(ctx2, {
+                type: "bar",
+                data: {
+                    labels: data.labels, // Dates from the database
+                    datasets: [{
+                        label: "Daily Rainfall (mm)",
+                        data: data.data, // Rainfall values
+                        backgroundColor: "rgba(153, 102, 255, 0.2)",
+                        borderColor: "rgba(153, 102, 255, 1)",
+                        borderWidth: 2,
+                    }]
+                },
+                options: {
+                    responsive: false, // Disable auto resize
+                    maintainAspectRatio: false, // Allow custom width & height
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: "Rainfall (mm)"
+                            }
+                        },
+                        x: {
+                            title: {
+                                display: true,
+                                text: "Date"
+                            },
+                            barPercentage: 0.3, // Reduce bar width
+                            categoryPercentage: 0.5, // Reduce spacing between bars
+                        }
+                    }
+                }
+            });
+        });
+});
+
+
+ 
+
+</script>
+
+{% endblock %}

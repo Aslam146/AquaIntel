@@ -1,0 +1,509 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="{%static 'assets/images/admin2.png' %}">
+    <!-- Bootstrap -->
+    <link href="{% static 'assets/vendors/bootstrap/dist/css/bootstrap.min.css'%}" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="{% static 'assets/vendors/font-awesome/css/font-awesome.min.css'%}" rel="stylesheet">
+    <!-- NProgress -->
+    <link href="{% static 'assets/vendors/nprogress/nprogress.css'%}" rel="stylesheet">
+    <!-- iCheck -->
+    <link href="{% static 'assets/vendors/iCheck/skins/flat/green.css'%}" rel="stylesheet">
+	
+    <!-- bootstrap-progressbar -->
+    <link href="{% static 'assets/vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css'%}" rel="stylesheet">
+    <!-- JQVMap -->
+    <link href="{% static 'assets/vendors/jqvmap/dist/jqvmap.min.css'%}" rel="stylesheet"/>
+    <!-- bootstrap-daterangepicker -->
+    <link href="{% static 'assets/vendors/bootstrap-daterangepicker/daterangepicker.css'%}" rel="stylesheet">
+
+    <!-- Custom Theme Style -->
+    <link href="{% static 'assets/build/css/custom.min.css'%}" rel="stylesheet">
+
+	<!-- bootstrap-wysiwyg -->
+	<link href="{% static 'assets/vendors/google-code-prettify/bin/prettify.min.css'%}" rel="stylesheet">
+	<!-- Select2 -->
+	<link href="{% static 'assets/vendors/select2/dist/css/select2.min.css'%}" rel="stylesheet">
+	<!-- Switchery -->
+	<link href="{% static 'assets/vendors/switchery/dist/switchery.min.css'%}" rel="stylesheet">
+	<!-- starrr -->
+	<link href="{% static 'assets/vendors/starrr/dist/starrr.css'%}" rel="stylesheet">
+	<!-- fa icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- darkmode -->
+    <script src="{% static 'assets/build/css/darkmode.css' %}"></script>  
+  </head>
+	<!-- <link rel="icon" href="{% static 'assets/images/img1.png' %}" type="image/ico" /> -->
+  <!--<link rel="stylesheet" href="{% static 'assets/scss/custom.scss'%}">
+  <link rel="stylesheet" href="{% static 'assets/scss/daterangepicker.scss'%}">
+  <script src="{% static 'assets/js/custom.js'%}"></script>
+  <script src="{% static 'assets/js/examples.js'%}"></script>
+  <script src="{% static 'assets/js/helpers/smartresize.js'%}"></script>
+  <script src="{% static 'assets/js/gulpfile.js'%}"></script>
+  <script src="{%  static 'assets/js/custom.min.js' %}"></script>
+  <script src="{%  static 'assets/js/custom.js' %}"></script> -->
+
+    <title>AQUAINTEL!</title>
+
+    <!-- Bootstrap -->
+    <link href="{% static 'assets/vendors/bootstrap/dist/css/bootstrap.min.css' %}" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="{% static 'assets/vendors/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet">
+    <!-- NProgress -->
+    <link href="{% static 'assets/vendors/nprogress/nprogress.css' %}" rel="stylesheet">
+    <!-- iCheck -->
+    <link href="{% static 'assets/vendors/iCheck/skins/flat/green.css' %}" rel="stylesheet">
+	
+    <!-- bootstrap-progressbar -->
+    <link href="{% static 'assets/vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css' %}" rel="stylesheet">
+    <!-- JQVMap -->
+    <link href="{% static 'assets/vendors/jqvmap/dist/jqvmap.min.css' %}" rel="stylesheet"/>
+    <!-- bootstrap-daterangepicker -->
+    <link href="{% static 'assets/vendors/bootstrap-daterangepicker/daterangepicker.css' %}" rel="stylesheet">
+
+    <!-- Custom Theme Style -->
+    <link href="{% static 'build/css/custom.min.css' %}" rel="stylesheet">
+    
+  </head>
+
+  <body class="nav-md">
+    <div class="container body">
+      <div class="main_container">
+        <div class="col-md-3 left_col nav1">
+          <div class="left_col scroll-view">
+            <div class="navbar nav_title" style="border: 0;">
+              <a href="{% url 'index'%}" class="site_title"><i class="fa fa-home"></i> <span>AQUAINTEL!</span></a>
+            </div>
+
+            <div class="clearfix"></div>
+
+            <!-- menu profile quick info -->
+            <div class="profile clearfix">
+              <div class="profile_pic">
+                <img src="{% static 'assets/images/admin2.png' %}" alt="..." class="img-circle profile_img">
+              </div>
+              <div class="profile_info">
+                <span>Welcome,</span>
+                <h2>Admin</h2>
+              </div>
+            </div>
+            <!-- /menu profile quick info -->
+
+            <br />
+
+            <!-- sidebar menu -->
+            <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+              <div class="menu_section">
+                <!-- <h3>General</h3> -->
+                <ul class="nav side-menu">
+                  <li><a href="{%url 'index'%}"><i class="fa fa-bars"></i> Dashboard <!--<span class="fa fa-chevron-down"></span>--></a>
+                    <ul class="nav child_menu">
+                      <!-- <li><a href="{%url 'index'%}">Dashboard</a></li> -->
+                      <!-- <li><a href="index2.html">Dashboard2</a></li>
+                      <li><a href="index3.html">Dashboard3</a></li> -->
+                    </ul>
+                  </li>
+                  <li><a><i class="fa fa-users"></i> Staff Management <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <!-- <li><a href="{%url 'registration'%}">Staff Add</a></li> -->
+                      <li><a href="{%url 'staffdetails'%}">Staff</a></li>
+                     
+                      <li><a href="{%url 'staff_table'%}">StaffView</a></li>
+                      
+                      <!-- <li><a href="form_upload.html">Form Upload</a></li>
+                      <li><a href="form_buttons.html">Form Buttons</a></li> -->
+                    </ul>
+                  </li>
+                </li>
+                <li><a><i class="fa fa-user-plus"></i> User Registration  <span class="fa fa-chevron-down"></span></a>
+                  <ul class="nav child_menu">
+                    <li><a href="{%url 'adminuserregistration'%}">Registration</a></li>
+                    <li><a href="{%url 'adminusertable'%}">View users</a></li>
+                    <!-- <li><a href="{%url 'watertable'%}">StatusView</a></li> -->
+                    <!-- <li><a href="typography.html">Typography</a></li>
+                    <li><a href="icons.html">Icons</a></li>
+                    <li><a href="glyphicons.html">Glyphicons</a></li>
+                    <li><a href="widgets.html">Widgets</a></li>
+                    <li><a href="invoice.html">Invoice</a></li>
+                    <li><a href="inbox.html">Inbox</a></li>
+                    <li><a href="calendar.html">Calendar</a></li>  -->
+                  </ul>
+                </li>
+                
+                <li><a><i class="fa fa-thumb-tack"></i> Water Level  <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="{%url 'water1'%}">Intensity-Level</a></li>
+                     
+                      <li><a href="{%url 'watertable'%}">StatusView</a></li>
+                      <!-- <li><a href="typography.html">Typography</a></li>
+                      <li><a href="icons.html">Icons</a></li>
+                      <li><a href="glyphicons.html">Glyphicons</a></li>
+                      <li><a href="widgets.html">Widgets</a></li>
+                      <li><a href="invoice.html">Invoice</a></li>
+                      <li><a href="inbox.html">Inbox</a></li>
+                      <li><a href="calendar.html">Calendar</a></li>  -->
+                    </ul>
+                  </li>
+                
+                  
+                  <li><a><i class="fa fa-sun-o"></i> WeatherPrediction <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="{%url 'weather'%}">Weather</a></li>
+                      <li><a href="{%url 'weathertable'%}">Weather-View</a></li>
+                      <!-- <li><a href="typography.html">Typography</a></li>
+                      <li><a href="icons.html">Icons</a></li>
+                      <li><a href="glyphicons.html">Glyphicons</a></li>
+                      <li><a href="widgets.html">Widgets</a></li>
+                      <li><a href="invoice.html">Invoice</a></li>
+                      <li><a href="inbox.html">Inbox</a></li>
+                      <li><a href="calendar.html">Calendar</a></li>  -->
+                    </ul>
+                  </li>
+                  <li><a><i class="fa fa-tint"></i> Rainfall Intensity  <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="{%url 'rain1'%}">Intensity</a></li>
+                      <li><a href="{%url 'rainchart'%}">Chart</a></li>
+                      
+                      <li><a href="{%url 'raintable'%}">Intensity-view</a></li>
+                      <!-- <li><a href="typography.html">Typography</a></li>
+                      <li><a href="icons.html">Icons</a></li>
+                      <li><a href="glyphicons.html">Glyphicons</a></li>
+                      <li><a href="widgets.html">Widgets</a></li>
+                      <li><a href="invoice.html">Invoice</a></li>
+                      <li><a href="inbox.html">Inbox</a></li>
+                      <li><a href="calendar.html">Calendar</a></li>  -->
+                    </ul>
+                  </li>
+                  <li><a><i class="fa fa-globe"></i> Evacuation Route <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="{%url 'evacuation1'%}">Evacuation</a></li>
+                     
+                      <li><a href="{%url 'evacuationtable'%}">Evacuation Details</a></li>
+                      
+                    </ul>
+                  </li>
+                  <li><a><i class="fa fa-hospital-o"></i> Relief Camp  <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="{%url 'camp1'%}">Camp</a></li>
+                     
+                      <li><a href="{%url 'reliefcamptable'%}">Camp View</a></li>
+                      <!-- <li><a href="other_charts.html">Other Charts</a></li>   -->
+                    </ul>
+                  </li>
+                  <!-- <li><a><i class="fa fa-shopping-cart"></i>Requirements<span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="{%url 'req1'%}"> Basic-Requirements</a></li>
+                      <li><a href="fixed_footer.html">Fixed Footer</a></li> -->
+                    <!-- </ul>
+                  </li> -->
+                  <li><a><i class="fa fa-address-card"></i>NGO <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="{%url 'ngo1'%}">NGO</a></li>
+                      <li><a href="{%url 'ngolist'%}">Details</a></li>
+                      <!-- <li><a href="morisjs.html">Moris JS</a></li>
+                      <li><a href="echarts.html">ECharts</a></li>
+                      <li><a href="other_charts.html">Other Charts</a></li>  -->
+                    </ul>
+                  </li>
+                  <li><a><i class="fa fa-exclamation-circle"></i>Alert Management <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="{%url 'alert1'%}">Alert</a></li>
+                      <li><a href="{%url 'alerttable'%}">Alert-View</a></li>
+                      <!-- <li><a href="chartjs2.html">Chart JS2</a></li>
+                      <li><a href="morisjs.html">Moris JS</a></li>
+                      <li><a href="echarts.html">ECharts</a></li>
+                      <li><a href="other_charts.html">Other Charts</a></li> -->
+                    </ul>
+                  </li>
+                  <li><a><i class="fa fa-puzzle-piece"></i>Settings-Masters <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href= "{%url 'adddesignation'%}">Designation</a></li>
+                      <li><a href="{%url 'adddepartment'%}">Department</a></li>
+                      <li><a href="{%url 'addrainfalllocations'%}">Add Rainfall-Locations</a></li>
+                      <li><a href="{%url 'addwaterstatus'%}">Add water status</a></li>
+                      <li><a href="{%url 'location'%}">Add Camp-Location</a></li>
+                      <li><a href="{%url 'amenities'%}">Add Amenities</a></li>
+                      <li><a href="{%url 'evacuationlocation'%}">Add Evacuation location</a></li> 
+                      <li><a href="{%url 'transport'%}">Add Transport Method</a></li> 
+                      <li><a href="{%url 'emergencysupply'%}">Add Emergency Supply</a></li> 
+                      <!-- <li><a href="chartjs2.html">Chart JS2</a></li>
+                      <li><a href="morisjs.html">Moris JS</a></li>
+                      <li><a href="echarts.html">ECharts</a></li>
+                      <li><a href="other_charts.html">Other Charts</a></li> -->
+                    </ul>
+                  </li>
+                  <!-- <li><a><i class="fa fa-medkit"></i>Rescue Center  <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="{%url 'rescue1'%}">Rescue-Management</a></li> -->
+                      <!-- <li><a href="chartjs2.html">Chart JS2</a></li>
+                      <li><a href="morisjs.html">Moris JS</a></li>
+                      <li><a href="echarts.html">ECharts</a></li>
+                      <li><a href="other_charts.html">Other Charts</a></li> -->
+                    <!-- </ul>
+                  </li>
+                </ul> -->
+              </div>
+              <!-- <div class="menu_section"> -->
+                <!-- <h3>Live On</h3> -->
+                <!-- <ul class="nav side-menu">
+                  <li><a><i class="fa fa-bug"></i> Additional Pages <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="e_commerce.html">E-commerce</a></li>
+                      <li><a href="projects.html">Projects</a></li>
+                      <li><a href="project_detail.html">Project Detail</a></li>
+                      <li><a href="contacts.html">Contacts</a></li>
+                      <li><a href="profile.html">Profile</a></li>
+                    </ul> -->
+                  <!-- </li>
+                  <li><a><i class="fa fa-windows"></i> Extras <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="page_403.html">403 Error</a></li>
+                      <li><a href="page_404.html">404 Error</a></li>
+                      <li><a href="page_500.html">500 Error</a></li>
+                      <li><a href="plain_page.html">Plain Page</a></li>
+                      <li><a href="login.html">Login Page</a></li>
+                      <li><a href="pricing_tables.html">Pricing Tables</a></li>
+                    </ul>
+                  </li> -->
+                  <!-- <li><a><i class="fa fa-sitemap"></i> Multilevel Menu <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                        <li><a href="#level1_1">Level One</a>
+                        <li><a>Level One<span class="fa fa-chevron-down"></span></a>
+                          <ul class="nav child_menu">
+                            <li class="sub_menu"><a href="level2.html">Level Two</a>
+                            </li>
+                            <li><a href="#level2_1">Level Two</a>
+                            </li>
+                            <li><a href="#level2_2">Level Two</a>
+                            </li>
+                          </ul>
+                        </li>
+                        <li><a href="#level1_2">Level One</a>
+                        </li>
+                    </ul>
+                  </li>                  
+                  <li><a href="javascript:void(0)"><i class="fa fa-laptop"></i> Landing Page <span class="label label-success pull-right">Coming Soon</span></a></li>
+                </ul>
+              </div> -->
+
+            </div>
+
+            <!-- /sidebar menu -->
+
+            <!-- /menu footer buttons -->
+            <div class="sidebar-footer hidden-small">
+              <a data-toggle="tooltip" data-placement="top" title="Settings" href="{%url 'settin'%}">
+                <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+              </a>
+              <a id="fullscreen-toggle" data-toggle="tooltip" data-placement="top" title="Fullscreen">
+                <span id="fullscreen-icon" class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
+            </a>
+            <a id="lockToggle" data-toggle="tooltip" data-placement="top" title="Lock">
+              <span id="lockIcon" class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
+          </a>
+              <a data-to+ggle="tooltip" data-placement="top" title="Logout" href="{% url 'login'%}">
+                <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
+              </a>
+            </div>
+            <!-- /menu footer buttons -->
+          </div>
+        </div>
+
+        <!-- top navigation -->
+        <div class="top_nav">
+          <div class="nav_menu">
+              <div class="nav toggle">
+                <a id="menu_toggle"><i class="fa fa-bars"></i></a>
+              </div>
+              <nav class="nav navbar-nav">
+              <ul class=" navbar-right">
+                <li class="nav-item dropdown open" style="padding-left: 15px;">
+                  <a href="javascript:;" class="user-profile dropdown-toggle" aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown" aria-expanded="false">
+                    <img src="{% static 'assets/images/admin2.png' %}" alt="">Admin
+                  </a>
+                  <div class="dropdown-menu dropdown-usermenu pull-right" aria-labelledby="navbarDropdown">
+                    <!-- <a class="dropdown-item"  href="javascript:;"> Profile</a>
+                      <a class="dropdown-item"  href="javascript:;">
+                        <span class="badge bg-red pull-right">50%</span>
+                        <span>Settings</span>
+                      </a> -->
+                  <!-- <a class="dropdown-item"  href="javascript:;">Help</a> -->
+                    <a class="dropdown-item"  href="{% url 'login'%}"><i class="fa fa-sign-out pull-right"></i> Log Out</a>
+                  </div>
+                </li>
+<!-- 
+                <li role="presentation" class="nav-item dropdown open">
+                  <a href="javascript:;" class="dropdown-toggle info-number" id="navbarDropdown1" data-toggle="dropdown" aria-expanded="false">
+                    <i class="fa fa-envelope-o"></i>
+                    <span class="badge bg-green">6</span>
+                  </a> -->
+                  <!-- <ul class="dropdown-menu list-unstyled msg_list" role="menu" aria-labelledby="navbarDropdown1">
+                    <li class="nav-item">
+                      <a class="dropdown-item">
+                        <span class="image"><img src="{% static 'assets/images/admin2.png' %}" alt="Profile Image" /></span>
+                        <span>
+                          <span>Admin</span>
+                          <span class="time">3 mins ago</span>
+                        </span>
+                        <span class="message">
+                         flood alert...
+                        </span>
+                      </a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="dropdown-item">
+                        <span class="image"><img src="{% static 'assets/images/admin2.png'%}" alt="Profile Image" /></span>
+                        <span>
+                          <span>Admin</span>
+                          <span class="time">3 mins ago</span>
+                        </span>
+                        <span class="message">
+                          High Prone Area..
+                        </span>
+                      </a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="dropdown-item">
+                        <span class="image"><img src="{% static 'assets/images/admin2.png' %}" alt="Profile Image" /></span>
+                        <span>
+                          <span>Admin</span>
+                          <span class="time">4 mins ago</span>
+                        </span>
+                        <span class="message">
+                          25 people rescued..
+                        </span>
+                      </a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="dropdown-item">
+                        <span class="image"><img src="{% static 'assets/images/admin2.png'%}" alt="Profile Image" /></span>
+                        <span>
+                          <span>Admin</span>
+                          <span class="time">3 mins ago</span>
+                        </span>
+                        <span class="message">
+                          Heavy Rainfall
+                        </span>
+                      </a>
+                    </li>
+                    <li class="nav-item">
+                      <div class="text-center">
+                        <a class="dropdown-item">
+                          <strong>See All Alerts</strong>
+                          <i class="fa fa-angle-right"></i>
+                        </a>
+                      </div>
+                    </li>
+                  </ul> -->
+                </li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+        <!-- /top navigation -->
+{%block content%}
+
+{%endblock%}
+
+<!-- /full dark -->
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+	<!-- bootstrap-daterangepicker -->
+	<script src="{% static 'assets/vendors/moment/min/moment.min.js'%}"></script>
+	<script src="{% static 'assets/vendors/bootstrap-daterangepicker/daterangepicker.js'%}"></script>
+	<!-- bootstrap-wysiwyg -->
+	<script src="{% static 'assets/vendors/bootstrap-wysiwyg/js/bootstrap-wysiwyg.min.js'%}"></script>
+	<script src="{% static 'assets/vendors/jquery.hotkeys/jquery.hotkeys.js'%}"></script>
+	<script src="{% static 'assets/vendors/google-code-prettify/src/prettify.js'%}"></script>
+	<!-- jQuery Tags Input -->
+	<script src="{% static 'assets/vendors/jquery.tagsinput/src/jquery.tagsinput.js'%}"></script>
+	<!-- Switchery -->
+	<script src="{% static 'assets/vendors/switchery/dist/switchery.min.js'%}"></script>
+	<!-- Select2 -->
+	<script src="{% static 'assets/vendors/select2/dist/js/select2.full.min.js'%}"></script>
+	<!-- Parsley -->
+	<script src="{% static 'assets/vendors/parsleyjs/dist/parsley.min.js'%}"></script>
+	<!-- Autosize -->
+	<script src="{% static 'assets/vendors/autosize/dist/autosize.min.js'%}"></script>
+	<!-- jQuery autocomplete -->
+	<script src="{% static 'assets/vendors/devbridge-autocomplete/dist/jquery.autocomplete.min.js'%}"></script>
+	<!-- starrr -->
+	<script src="{% static 'assets/vendors/starrr/dist/starrr.js'%}"></script>
+
+    <!-- jQuery -->
+    <script src="{% static 'assets/vendors/jquery/dist/jquery.min.js'%}"></script>
+    <!-- Bootstrap -->
+    <script src="{% static 'assets/vendors/bootstrap/dist/js/bootstrap.bundle.min.js'%}"></script>
+    <!-- FastClick -->
+    <script src="{% static 'assets/vendors/fastclick/lib/fastclick.js'%}"></script>
+    <!-- NProgress -->
+    <script src="{% static 'assets/vendors/nprogress/nprogress.js'%}"></script>
+    <!-- Chart.js -->
+    <script src="{% static 'assets/vendors/Chart.js/dist/Chart.min.js'%}"></script>
+    <!-- gauge.js -->
+    <script src="{% static 'assets/vendors/gauge.js/dist/gauge.min.js'%}"></script>
+    <!-- bootstrap-progressbar -->
+    <script src="{% static 'assets/vendors/bootstrap-progressbar/bootstrap-progressbar.min.js'%}"></script>
+    <!-- iCheck -->
+    <script src="{% static 'assets/vendors/iCheck/icheck.min.js'%}"></script>
+    <!-- Skycons -->
+    <script src="{% static 'assets/vendors/skycons/skycons.js'%}"></script>
+    <!-- Flot -->
+    <script src="{% static 'assets/vendors/Flot/jquery.flot.js'%}"></script>
+    <script src="{% static 'assets/vendors/Flot/jquery.flot.pie.js'%}"></script>
+    <script src="{% static 'assets/vendors/Flot/jquery.flot.time.js'%}"></script>
+    <script src="{% static 'assets/vendors/Flot/jquery.flot.stack.js'%}"></script>
+    <script src="{% static 'assets/vendors/Flot/jquery.flot.resize.js'%}"></script>
+    <!-- Flot plugins -->
+    <script src="{% static 'assets/vendors/flot.orderbars/js/jquery.flot.orderBars.js'%}"></script>
+    <script src="{% static 'assets/vendors/flot-spline/js/jquery.flot.spline.min.js'%}"></script>
+    <script src="{% static 'assets/vendors/flot.curvedlines/curvedLines.js'%}"></script>
+    <!-- DateJS -->
+    <script src="{% static 'assets/vendors/DateJS/build/date.js'%}"></script>
+    <!-- JQVMap -->
+    <script src="{% static 'assets/vendors/jqvmap/dist/jquery.vmap.js'%}"></script>
+    <script src="{% static 'assets/vendors/jqvmap/dist/maps/jquery.vmap.world.js'%}"></script>
+    <script src="{% static 'assets/vendors/jqvmap/examples/js/jquery.vmap.sampledata.js'%}"></script>
+    <!-- bootstrap-daterangepicker -->
+    <script src="{% static 'assets/vendors/moment/min/moment.min.js'%}"></script>
+    <script src="{% static 'assets/vendors/bootstrap-daterangepicker/daterangepicker.js'%}"></script>
+
+    <!-- Custom Theme Scripts -->
+    <script src="{% static 'assets/build/js/custom.min.js'%}"></script>
+    <!-- fullscreen -->
+    <script src="{% static 'assets/build/js/fullscreen.js' %}"></script>  
+    <!-- darkmode -->
+    <script src="{% static 'assets/build/js/dark.js' %}"></script>  
+    <script>
+      $(document).ready(function () {
+          // Initialize Bootstrap tooltip
+          $('[data-toggle="tooltip"]').tooltip(); 
+
+          // Lock/Unlock Toggle
+          $('#lockToggle').click(function () {
+              var $icon = $('#lockIcon');
+              var $text = $('#targetText');
+
+              if ($icon.hasClass('glyphicon-eye-close')) {
+                  // Locking: Change to locked state
+                  $icon.removeClass('glyphicon-eye-close').addClass('glyphicon-lock');
+                  $('#lockToggle').attr('title', 'Unlock').tooltip('fixTitle').tooltip('show'); // Change tooltip text
+                  $text.addClass('locked');
+              } else {
+                  // Unlocking: Change to unlocked state
+                  $icon.removeClass('glyphicon-lock').addClass('glyphicon-eye-close');
+                  $('#lockToggle').attr('title', 'Lock').tooltip('fixTitle').tooltip('show'); // Change tooltip text
+                  $text.removeClass('locked');
+              }
+          });
+      });
+  </script>
+  </body>
+</html>

@@ -1,0 +1,118 @@
+{% extends 'user/userbase.html' %}
+{% load static %}
+{% block content %}
+<!-- Page Content -->
+<div class="right_col" role="main" style="height:auto; font-family: -apple-system, BlinkMacSystemFont, 'San Francisco', 'Helvetica Neue', Helvetica, Arial, sans-serif; background: linear-gradient(to bottom, #F2F2F7, #D1D1D6);">
+    <div class="">
+        <div class="page-title">
+            <div class="title_left">
+                <h3 style="color: #007AFF; font-weight: 600;">Rainfall Intensity Management</h3>
+            </div>
+
+            <!-- <div class="title_right">
+                <div class="col-md-5 col-sm-5 form-group pull-right top_search">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Search rainfall data..." style="border-radius: 12px; border: 1px solid #D1D1D6; padding: 8px;">
+                        <span class="input-group-btn">
+                            <button class="btn btn-primary" type="button" style="background-color: #007AFF; border-radius: 12px; border: none; padding: 8px 16px;">Go!</button>
+                        </span>
+                    </div>
+                </div>
+            </div> -->
+        </div>
+        <div class="clearfix"></div>
+      
+        <!-- Chart Section -->
+        <div class="row" style="display: flex; justify-content: center;">
+            <div class="col-md-6 col-sm-12">
+                <div class="x_panel" style="border-radius: 15px; box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15); background: linear-gradient(to bottom, #E5E5EA, #D1D1D6);">
+                    <div class="x_title">
+                        <h2 style="color: #1C1C1E; font-weight: 500;">Rainfall Intensity Chart <small style="color: #8E8E93;">High Intensity Months (2023-2025)</small></h2>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+                        <canvas id="rainfallChart" width="500" height="400"></canvas>
+                    </div>
+                </div>
+            </div>
+        
+            <div class="col-md-6 col-sm-12">
+                <div class="x_panel" style="border-radius: 15px; box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15); background: linear-gradient(to bottom, #E5E5EA, #D1D1D6);">
+                    <div class="x_title">
+                        <h2 style="color: #1C1C1E; font-weight: 500;">Daily Rainfall Bar Chart <small style="color: #8E8E93;">High Intensity Days</small></h2>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+                        <canvas id="dailyRainfallChart" width="500" height="400"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /Chart Section -->
+    </div>
+</div>
+<!-- /Page Content -->
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    fetch("{% url 'rainfall_chart_data' %}")
+        .then(response => response.json())
+        .then(data => {
+            new Chart(document.getElementById("rainfallChart").getContext("2d"), {
+                type: "line",
+                data: {
+                    labels: data.labels,
+                    datasets: [{
+                        label: "Rainfall Intensity (mm/hr)",
+                        data: data.data,
+                        backgroundColor: "rgba(52, 199, 89, 0.1)",
+                        borderColor: "#34C759",
+                        borderWidth: 2,
+                        pointBackgroundColor: "#34C759",
+                        fill: true
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: { beginAtZero: true, title: { display: true, text: "Intensity (mm/hr)" } },
+                        x: { title: { display: true, text: "Month" } }
+                    },
+                    animation: { tension: 0.4 }
+                }
+            });
+        });
+    
+    fetch("{% url 'daily_rainfall_chart_data' %}")
+        .then(response => response.json())
+        .then(data => {
+            new Chart(document.getElementById("dailyRainfallChart").getContext("2d"), {
+                type: "bar",
+                data: {
+                    labels: data.labels,
+                    datasets: [{
+                        label: "Daily Rainfall (mm)",
+                        data: data.data,
+                        backgroundColor: "#007AFF",
+                        borderColor: "#007AFF",
+                        borderWidth: 2,
+                        borderRadius: 12
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: { beginAtZero: true, title: { display: true, text: "Rainfall (mm)" } },
+                        x: { title: { display: true, text: "Date" }, barPercentage: 0.5, categoryPercentage: 0.7 }
+                    },
+                    animation: { duration: 1000, easing: "easeInOutCubic" }
+                }
+            });
+        });
+});
+</script>
+
+{% endblock %}
