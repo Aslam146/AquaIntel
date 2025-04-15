@@ -72,5 +72,5 @@ Floods are among the most destructive natural disasters. AquaIntel is designed t
 
 ---
 
-## 🗂️ Project Structure
+
 
