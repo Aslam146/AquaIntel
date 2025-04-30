@@ -40,7 +40,7 @@ Floods are among the most destructive natural disasters. AquaIntel is designed t
 ### 🌐 Web App:
 - **Backend**: Django (Python)
 - **Frontend**: HTML, CSS, Bootstrap, JS
-- **Database**: SQLite
+- **Database**: MySQL WorkBench
 - **API Integration**: Live sensor data API to Django views/forms
 
 ---
